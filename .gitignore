@@ -1,0 +1,58 @@
+.claude/commands/sharpener.md
+.claude/scripts/detect-tier.sh
+.claude/scripts/gen-decisions.sh
+.claude/scripts/gen-integration-map.sh
+.claude/scripts/gen-project-brief.sh
+.claude/scripts/gen-repomap.sh
+.claude/scripts/install-hook.sh
+.claude/scripts/launch-vision.sh
+.claude/scripts/list-files.sh
+.claude/scripts/merge-vision-facts.js
+.claude/scripts/merge-vision-facts.sh
+.claude/scripts/print-decisions.sh
+.claude/scripts/print-integration-map.sh
+.claude/scripts/print-repomap.sh
+.claude/scripts/update-index.sh
+
+# --- next.js ---
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# env files (can opt-in for committing if needed)
+.env*
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
