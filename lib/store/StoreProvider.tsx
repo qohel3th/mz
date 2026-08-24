@@ -41,6 +41,8 @@ import { SEED_IDEAL_SELVES, SEED_TASKS, SEED_WARRIORS } from "@/lib/domain/seeds
 export interface StoreState extends Snapshot {
   hydrated: boolean;
   settings: AppSettings;
+  /** set when the repository failed to load — the UI shows it instead of freezing */
+  loadError?: string;
 }
 
 export interface GrantXpInput {
@@ -116,7 +118,16 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     let cancelled = false;
     (async () => {
-      const snap = await repo.loadSnapshot();
+      let snap: Snapshot;
+      try {
+        snap = await repo.loadSnapshot();
+      } catch (err) {
+        if (cancelled) return;
+        const message = err instanceof Error ? err.message : String(err);
+        console.error("[store] failed to load repository", err);
+        setState((s) => ({ ...s, hydrated: true, loadError: `${repo.driver}: ${message}` }));
+        return;
+      }
       if (Object.keys(snap.warriors).length === 0) {
         for (const w of SEED_WARRIORS) snap.warriors[w.id] = await repo.set("warriors", w);
         for (const s of SEED_IDEAL_SELVES) snap.idealSelves[s.id] = await repo.set("idealSelves", s);
