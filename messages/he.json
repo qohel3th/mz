@@ -1,0 +1,132 @@
+{
+  "app": {
+    "name": "אקדמיית זהות הלוחם",
+    "short": "אז\"ל",
+    "tagline": "להפוך למי שהחלטת להיות."
+  },
+  "common": {
+    "continue": "המשך",
+    "back": "חזרה",
+    "save": "שמור",
+    "cancel": "ביטול",
+    "done": "סיום",
+    "add": "הוסף",
+    "remove": "הסר",
+    "edit": "ערוך",
+    "skip": "דלג",
+    "close": "סגור",
+    "loading": "טוען…",
+    "today": "היום",
+    "yes": "כן",
+    "no": "לא",
+    "optional": "לא חובה",
+    "empty": "אין כאן עדיין כלום."
+  },
+  "nav": {
+    "home": "בית",
+    "dashboard": "לוח",
+    "journal": "יומן",
+    "reflections": "התבוננות",
+    "onboarding": "זהות"
+  },
+  "header": {
+    "switchWarrior": "החלף לוחם",
+    "language": "שפה",
+    "noWarrior": "בחר לוחם"
+  },
+  "locale": {
+    "en": "EN",
+    "he": "עב",
+    "toggleTo": "עבור ל{lang}"
+  },
+  "domains": {
+    "body": "גוף",
+    "mind": "תודעה",
+    "spirit": "רוח",
+    "relationships": "קשרים",
+    "finance": "כלכלה",
+    "purpose": "ייעוד"
+  },
+  "themes": {
+    "arcane": "מסתורין",
+    "ember": "גחלת",
+    "gilded": "זהב"
+  },
+  "countdown": {
+    "title": "השנה מסתיימת",
+    "subtitle": "למי תהפוך עד אז?",
+    "days": "ימים",
+    "hours": "שעות",
+    "minutes": "דק׳",
+    "seconds": "שנ׳",
+    "enter": "היכנס לאקדמיה"
+  },
+  "warriors": {
+    "choose": "בחר את הלוחם שלך",
+    "select": "בחר",
+    "selected": "פעיל",
+    "level": "רמה {level}",
+    "xp": "{xp} נק׳",
+    "streak": "רצף של {days} ימים"
+  },
+  "onboarding": {
+    "title": "סדנת זהות",
+    "progress": "שלב {current} מתוך {total}",
+    "resume": "המשך מהמקום שעצרת",
+    "steps": {
+      "commitment": "מחויבות",
+      "ideal-selves": "העצמי האידיאלי",
+      "future-biography": "ביוגרפיה עתידית",
+      "attractions": "מה מושך אותך",
+      "emergency-kit": "ערכת חירום אצילה",
+      "life-rules": "חוקי חיים",
+      "first-practice": "תרגול ראשון"
+    }
+  },
+  "dashboard": {
+    "title": "לוח",
+    "level": "רמה",
+    "xp": "נק׳",
+    "streak": "רצף",
+    "nextLevel": "{xp} נק׳ לרמה {level}",
+    "anchors": "עוגנים יומיים",
+    "major": "משימות יום מרכזיות",
+    "side": "משימות צד",
+    "hexagon": "שישה תחומים",
+    "quarterlyFocus": "מיקוד רבעוני",
+    "maintenance": "תחזוקה",
+    "growth": "צמיחה ×{mult}",
+    "mvw": "שבוע מינימלי",
+    "mvwHint": "צמצם לעיקר. הרצף והנקודות שלך בטוחים."
+  },
+  "journal": {
+    "title": "יומן",
+    "new": "רשומה חדשה",
+    "placeholder": "מה קרה היום? במה הבחנת?",
+    "weeklyReplay": "שידור חוזר שבועי",
+    "empty": "אין רשומות עדיין. כתוב את השורה הראשונה.",
+    "save": "שמור רשומה"
+  },
+  "reflections": {
+    "title": "התבוננות",
+    "weekly": "שבועי",
+    "monthly": "חודשי",
+    "quarterly": "רבעוני",
+    "due": "התבוננות {cadence} פתוחה",
+    "start": "התבונן עכשיו",
+    "later": "אחר כך"
+  },
+  "ai": {
+    "refine": "זקק",
+    "translate": "תרגם",
+    "original": "מקור",
+    "refined": "מזוקק",
+    "translated": "מתורגם",
+    "copyPrompt": "העתק פרומפט",
+    "copied": "הועתק ללוח",
+    "pasteResponse": "הדבק תשובה חיצונית",
+    "patterns": "זיהוי דפוסים",
+    "dismiss": "הסתר",
+    "mock": "ספק מדומה — תשובות קבועות"
+  }
+}

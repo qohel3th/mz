@@ -1,0 +1,132 @@
+{
+  "app": {
+    "name": "Warrior Identity Academy",
+    "short": "WIA",
+    "tagline": "Become who you decided to be."
+  },
+  "common": {
+    "continue": "Continue",
+    "back": "Back",
+    "save": "Save",
+    "cancel": "Cancel",
+    "done": "Done",
+    "add": "Add",
+    "remove": "Remove",
+    "edit": "Edit",
+    "skip": "Skip",
+    "close": "Close",
+    "loading": "Loading…",
+    "today": "Today",
+    "yes": "Yes",
+    "no": "No",
+    "optional": "optional",
+    "empty": "Nothing here yet."
+  },
+  "nav": {
+    "home": "Home",
+    "dashboard": "Dashboard",
+    "journal": "Journal",
+    "reflections": "Reflections",
+    "onboarding": "Identity"
+  },
+  "header": {
+    "switchWarrior": "Switch warrior",
+    "language": "Language",
+    "noWarrior": "Choose a warrior"
+  },
+  "locale": {
+    "en": "EN",
+    "he": "עב",
+    "toggleTo": "Switch to {lang}"
+  },
+  "domains": {
+    "body": "Body",
+    "mind": "Mind",
+    "spirit": "Spirit",
+    "relationships": "Relationships",
+    "finance": "Finance",
+    "purpose": "Purpose"
+  },
+  "themes": {
+    "arcane": "Arcane",
+    "ember": "Ember",
+    "gilded": "Gilded"
+  },
+  "countdown": {
+    "title": "The year is ending",
+    "subtitle": "Who will you have become?",
+    "days": "days",
+    "hours": "hours",
+    "minutes": "min",
+    "seconds": "sec",
+    "enter": "Enter the Academy"
+  },
+  "warriors": {
+    "choose": "Choose your warrior",
+    "select": "Select",
+    "selected": "Active",
+    "level": "Level {level}",
+    "xp": "{xp} XP",
+    "streak": "{days}-day streak"
+  },
+  "onboarding": {
+    "title": "Identity Workshop",
+    "progress": "Step {current} of {total}",
+    "resume": "Resume where you left off",
+    "steps": {
+      "commitment": "Commitment",
+      "ideal-selves": "Ideal Selves",
+      "future-biography": "Future Biography",
+      "attractions": "What Pulls You",
+      "emergency-kit": "Noble Emergency Kit",
+      "life-rules": "Life Rules",
+      "first-practice": "First Practice"
+    }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "level": "Level",
+    "xp": "XP",
+    "streak": "Streak",
+    "nextLevel": "{xp} XP to level {level}",
+    "anchors": "Daily Anchors",
+    "major": "Major Daily Tasks",
+    "side": "Side Quests",
+    "hexagon": "Six Domains",
+    "quarterlyFocus": "Quarterly Focus",
+    "maintenance": "Maintenance",
+    "growth": "Growth ×{mult}",
+    "mvw": "Minimum Viable Week",
+    "mvwHint": "Reduce to the essentials. Your streak and XP are safe."
+  },
+  "journal": {
+    "title": "Journal",
+    "new": "New entry",
+    "placeholder": "What happened today? What did you notice?",
+    "weeklyReplay": "Weekly Replay",
+    "empty": "No entries yet. Write your first line.",
+    "save": "Save entry"
+  },
+  "reflections": {
+    "title": "Reflections",
+    "weekly": "Weekly",
+    "monthly": "Monthly",
+    "quarterly": "Quarterly",
+    "due": "{cadence} reflection is open",
+    "start": "Reflect now",
+    "later": "Later"
+  },
+  "ai": {
+    "refine": "Refine",
+    "translate": "Translate",
+    "original": "Original",
+    "refined": "Refined",
+    "translated": "Translated",
+    "copyPrompt": "Copy Prompt",
+    "copied": "Copied to clipboard",
+    "pasteResponse": "Paste External Response",
+    "patterns": "Pattern Detection",
+    "dismiss": "Dismiss",
+    "mock": "Mock provider — deterministic responses"
+  }
+}
