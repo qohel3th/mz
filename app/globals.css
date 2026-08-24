@@ -1,26 +1,248 @@
 @import "tailwindcss";
+@config "../tailwind.config.ts";
 
+/* ------------------------------------------------------------------
+   Warrior Identity Academy — design tokens
+   Base: steampunk-arcane dark. Accent family swaps via
+   <html data-theme="ember|arcane|gilded">.
+   ------------------------------------------------------------------ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: dark;
+
+  /* base surfaces */
+  --bg: #0b0810;
+  --bg-2: #14101c;
+  --bg-3: #1d1727;
+  --panel: rgba(255, 255, 255, 0.035);
+  --panel-strong: rgba(255, 255, 255, 0.07);
+  --border: rgba(212, 160, 23, 0.16);
+  --border-strong: rgba(212, 160, 23, 0.38);
+
+  /* text */
+  --fg: #ece4d3;
+  --fg-muted: #a89f8c;
+  --fg-faint: #6f6759;
+
+  /* families */
+  --purple: #6d28d9;
+  --purple-2: #8b5cf6;
+  --purple-3: #2e1065;
+  --red: #b91c1c;
+  --red-2: #ef4444;
+  --red-3: #450a0a;
+  --gold: #d4a017;
+  --gold-2: #f2c14e;
+  --gold-3: #6b4f0b;
+  --brass: #8a6a1f;
+  --copper: #b87333;
+  --success: #3f9d5a;
+  --danger: #ef4444;
+
+  /* theme-swappable accents (default: arcane) */
+  --accent: var(--purple);
+  --accent-2: var(--purple-2);
+  --accent-3: var(--purple-3);
+  --accent-fg: #ffffff;
+
+  /* radii + spacing */
+  --radius: 14px;
+  --radius-lg: 22px;
+
+  /* safe areas */
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+}
+
+html[data-theme="arcane"] {
+  --accent: var(--purple);
+  --accent-2: var(--purple-2);
+  --accent-3: var(--purple-3);
+}
+html[data-theme="ember"] {
+  --accent: var(--red);
+  --accent-2: var(--red-2);
+  --accent-3: var(--red-3);
+}
+html[data-theme="gilded"] {
+  --accent: var(--gold);
+  --accent-2: var(--gold-2);
+  --accent-3: var(--gold-3);
+  --accent-fg: #14101c;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-bg: var(--bg);
+  --color-bg-2: var(--bg-2);
+  --color-bg-3: var(--bg-3);
+  --color-panel: var(--panel);
+  --color-panel-strong: var(--panel-strong);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-fg: var(--fg);
+  --color-fg-muted: var(--fg-muted);
+  --color-fg-faint: var(--fg-faint);
+  --color-accent: var(--accent);
+  --color-accent-2: var(--accent-2);
+  --color-accent-3: var(--accent-3);
+  --color-accent-fg: var(--accent-fg);
+  --color-purple: var(--purple);
+  --color-purple-2: var(--purple-2);
+  --color-red: var(--red);
+  --color-red-2: var(--red-2);
+  --color-gold: var(--gold);
+  --color-gold-2: var(--gold-2);
+  --color-gold-3: var(--gold-3);
+  --color-brass: var(--brass);
+  --color-copper: var(--copper);
+  --color-success: var(--success);
+  --color-danger: var(--danger);
+  --radius-panel: var(--radius);
+  --radius-panel-lg: var(--radius-lg);
+  --font-sans: var(--font-body), var(--font-hebrew), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-display), var(--font-hebrew), Georgia, serif;
+  --font-hebrew: var(--font-hebrew), var(--font-body), system-ui, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ------------------------------------------------------------------
+   Base
+   ------------------------------------------------------------------ */
+html,
+body {
+  background: var(--bg);
+  color: var(--fg);
+  min-height: 100%;
+  overflow-x: hidden;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  background-image:
+    radial-gradient(1200px 600px at 50% -10%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 60%),
+    radial-gradient(800px 400px at 100% 100%, color-mix(in srgb, var(--gold) 8%, transparent), transparent 60%),
+    linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
+  background-attachment: fixed;
+  transition: background-image 600ms ease;
+}
+
+/* brass filigree noise overlay */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.35;
+  background-image:
+    repeating-linear-gradient(0deg, transparent 0 3px, rgba(212, 160, 23, 0.025) 3px 4px),
+    repeating-linear-gradient(90deg, transparent 0 3px, rgba(109, 40, 217, 0.02) 3px 4px);
+}
+
+h1, h2, h3, .font-display {
+  font-family: var(--font-display);
+  letter-spacing: 0.02em;
+}
+
+/* Hebrew gets its own face */
+html[lang="he"] body {
+  font-family: var(--font-hebrew);
+}
+html[lang="he"] h1,
+html[lang="he"] h2,
+html[lang="he"] h3,
+html[lang="he"] .font-display {
+  font-family: var(--font-hebrew);
+  letter-spacing: 0;
+}
+
+/* ------------------------------------------------------------------
+   Hard requirement: every user-authored text render uses dir="auto"
+   + unicode-bidi: plaintext so mixed EN/HE never breaks alignment.
+   Use <UserText> / <Field> from components/ui, which apply `.bidi`.
+   ------------------------------------------------------------------ */
+.bidi {
+  unicode-bidi: plaintext;
+  text-align: start;
+}
+textarea.bidi,
+input.bidi {
+  unicode-bidi: plaintext;
+}
+
+/* safe-area helpers */
+.safe-top { padding-top: var(--safe-top); }
+.safe-bottom { padding-bottom: var(--safe-bottom); }
+.safe-x { padding-left: var(--safe-left); padding-right: var(--safe-right); }
+
+/* panels */
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  backdrop-filter: blur(6px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.04),
+    0 10px 30px -18px rgba(0, 0, 0, 0.8);
+}
+.panel-strong {
+  background: var(--panel-strong);
+  border-color: var(--border-strong);
+}
+.panel-accent {
+  border-color: color-mix(in srgb, var(--accent) 55%, transparent);
+  background:
+    linear-gradient(160deg, color-mix(in srgb, var(--accent) 18%, transparent), transparent 60%),
+    var(--panel);
+}
+
+/* rivet corners for the steampunk feel */
+.rivets {
+  position: relative;
+}
+.rivets::after {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  border-radius: calc(var(--radius) - 6px);
+  border: 1px dashed color-mix(in srgb, var(--gold) 22%, transparent);
+  pointer-events: none;
+}
+
+/* gold text */
+.text-gild {
+  background: linear-gradient(180deg, var(--gold-2), var(--gold) 60%, var(--brass));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* scroll snap replay */
+.snap-x-mandatory {
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.snap-x-mandatory::-webkit-scrollbar { display: none; }
+.snap-child { scroll-snap-align: center; scroll-snap-stop: always; }
+
+/* skeleton shimmer */
+.skeleton {
+  background: linear-gradient(90deg, var(--panel) 0%, var(--panel-strong) 50%, var(--panel) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s linear infinite;
+  border-radius: 8px;
+}
+@keyframes shimmer {
+  from { background-position: 200% 0; }
+  to { background-position: -200% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }
