@@ -8,6 +8,7 @@ import { cn } from "@/components/ui";
 const ITEMS: Array<{ href: string; key: string; glyph: string }> = [
   { href: "/dashboard", key: "nav.dashboard", glyph: "⬢" },
   { href: "/onboarding", key: "nav.onboarding", glyph: "◈" },
+  { href: "/map", key: "nav.map", glyph: "⌘" },
   { href: "/journal", key: "nav.journal", glyph: "✎" },
   { href: "/reflections", key: "nav.reflections", glyph: "☾" },
 ];

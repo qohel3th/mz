@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useActiveWarrior, useHydrated } from "@/lib/store";
 import { useT } from "@/lib/i18n/useT";
-import { LocaleToggle } from "./LocaleToggle";
 import { UserText } from "@/components/ui";
 
 /** Persistent top bar: brand, active warrior, language toggle. */
@@ -39,7 +38,6 @@ export function AppHeader() {
           )}
         </Link>
 
-        <LocaleToggle />
       </div>
     </header>
   );

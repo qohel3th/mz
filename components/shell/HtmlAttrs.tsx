@@ -1,23 +1,25 @@
 "use client";
 
 import { useEffect } from "react";
-import { useActiveWarrior, useLocale } from "@/lib/store";
-import { dirFor } from "@/lib/i18n";
+import { useActiveWarrior } from "@/lib/store";
 
 /**
- * Syncs <html lang dir data-theme> from the store.
+ * Syncs <html data-theme> from the store.
  * Theme = the active warrior's theme (which follows their active Ideal Self).
+ *
+ * The UI chrome is English-only: <html> is pinned to lang="en" dir="ltr".
+ * Hebrew user content still aligns correctly because every user-authored
+ * render site uses <UserText>/<TextField>/<TextArea> (dir="auto" + plaintext).
  */
 export function HtmlAttrs() {
-  const { locale } = useLocale();
   const warrior = useActiveWarrior();
   const theme = warrior?.theme ?? "arcane";
 
   useEffect(() => {
     const el = document.documentElement;
-    el.lang = locale;
-    el.dir = dirFor(locale);
-  }, [locale]);
+    el.lang = "en";
+    el.dir = "ltr";
+  }, []);
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
