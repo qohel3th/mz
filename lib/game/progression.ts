@@ -1,13 +1,19 @@
 import type { Domain, Warrior } from "@/lib/domain/types";
+import { RANK_TITLES } from "./ranks";
 
 /**
  * Cumulative XP thresholds. Index i => level i + 1.
- * Level 1 starts at 0 XP, level 2 at 100, growth ~ 100 * (level - 1)^1.6.
- * Edit this table to retune the whole curve; nothing else needs to change.
+ * SINGLE TUNING POINT for the whole curve.
+ *   - level 1 starts at 0 XP; level 2 is a modest gate (110 XP)
+ *   - per-level cost grows ~6% per level (exponential), every delta strictly larger than the last
+ *   - level 33 (max) is reached at 9,990 cumulative XP (~10k)
+ * Hand-written (rounded to 5s) so the numbers read cleanly on the Ranks ladder.
  */
 export const XP_CURVE: readonly number[] = [
-  0, 100, 300, 580, 920, 1310, 1760, 2250, 2790, 3360, 3980, 4640, 5330, 6060, 6820, 7610, 8440, 9300, 10190, 11110,
-  12060, 13040, 14050, 15090, 16150, 17250, 18370, 19520, 20690, 21890, 23120, 24370, 25650,
+  0, 110, 225, 350, 480, 620, 765, 920, 1085, 1260, // L1–L10
+  1445, 1640, 1850, 2070, 2305, 2555, 2820, 3100, 3395, 3710, // L11–L20
+  4045, 4400, 4775, 5170, 5590, 6035, 6505, 7005, 7535, 8095, // L21–L30
+  8690, 9320, 9990, // L31–L33
 ];
 
 export const MAX_LEVEL = XP_CURVE.length; // 33
@@ -38,21 +44,10 @@ export function levelFor(xp: number): LevelInfo {
   return { level, currentThreshold, nextThreshold, progress, xpToNext: nextThreshold - safe };
 }
 
-/** Rank bands: [minLevel, i18n key under dashboard.ranks.*] */
-const RANK_BANDS: readonly (readonly [number, string])[] = [
-  [30, "mythic"],
-  [25, "paladin"],
-  [20, "champion"],
-  [15, "knight"],
-  [10, "warrior"],
-  [5, "squire"],
-  [1, "initiate"],
-];
-
-/** Returns the i18n key, e.g. "dashboard.ranks.knight". */
+/** Literal rank title for a level (chrome, not i18n). Clamped to [1, MAX_LEVEL]. */
 export function levelTitle(level: number): string {
-  const band = RANK_BANDS.find(([min]) => level >= min) ?? RANK_BANDS[RANK_BANDS.length - 1];
-  return `dashboard.ranks.${band[1]}`;
+  const idx = Math.min(MAX_LEVEL, Math.max(1, Math.floor(level))) - 1;
+  return RANK_TITLES[idx];
 }
 
 export const GROWTH_MULTIPLIER = 1.5;

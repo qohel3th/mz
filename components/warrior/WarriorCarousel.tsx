@@ -6,6 +6,7 @@ import type { ThemeId, Warrior } from "@/lib/domain/types";
 import { useStore, useWarriors, useXpEvents } from "@/lib/store";
 import { useT } from "@/lib/i18n/useT";
 import { Button, UserText, cn } from "@/components/ui";
+import { levelFor } from "@/lib/game/progression";
 
 /** Each warrior glows in its own family colour — never the page accent. */
 const FAMILY_COLOR: Record<ThemeId, string> = {
@@ -19,9 +20,6 @@ const FAMILY_COLOR_BRIGHT: Record<ThemeId, string> = {
   gilded: "var(--gold-2)",
 };
 
-const MAX_LEVEL = 33;
-/** Simple placeholder curve; the real progression lives in the game layer. */
-export const levelFromXp = (xp: number) => Math.min(MAX_LEVEL, 1 + Math.floor(Math.max(0, xp) / 100));
 
 function WarriorCard({
   warrior,
@@ -35,7 +33,7 @@ function WarriorCard({
   const { t } = useT();
   const events = useXpEvents(warrior.id);
   const xp = events.reduce((sum, e) => sum + e.amount, 0);
-  const level = levelFromXp(xp);
+  const level = levelFor(xp).level;
   const color = FAMILY_COLOR[warrior.theme] ?? FAMILY_COLOR.arcane;
   const bright = FAMILY_COLOR_BRIGHT[warrior.theme] ?? FAMILY_COLOR_BRIGHT.arcane;
   const archetypeKey = `warriors.archetypes.${warrior.archetype}`;

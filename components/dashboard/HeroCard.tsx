@@ -31,7 +31,7 @@ export function HeroCard({ warrior }: { warrior: Warrior }) {
       <div className="mt-4 flex items-baseline justify-between gap-3">
         <span className="font-display text-lg">
           {t("dashboard.level")} {info.level}
-          <span className="ms-2 text-sm text-gold-2">{t(levelTitle(info.level))}</span>
+          <span className="ms-2 text-sm text-gold-2">{levelTitle(info.level)}</span>
         </span>
         <span className="text-xs text-fg-muted">
           {xp} {t("dashboard.xp")}
@@ -45,7 +45,7 @@ export function HeroCard({ warrior }: { warrior: Warrior }) {
       </p>
 
       <div className="mt-4 grid grid-cols-3 gap-2">
-        <Stat label={t("dashboard.level")} value={info.level} tone="gold" hint={t(levelTitle(info.level))} />
+        <Stat label={t("dashboard.level")} value={info.level} tone="gold" hint={levelTitle(info.level)} />
         <Stat label={t("dashboard.xp")} value={xp} tone="accent" />
         <Stat
           label={t("dashboard.streak")}
