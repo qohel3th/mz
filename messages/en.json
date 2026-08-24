@@ -27,7 +27,8 @@
     "dashboard": "Dashboard",
     "journal": "Journal",
     "reflections": "Reflections",
-    "onboarding": "Identity"
+    "onboarding": "Identity",
+    "map": "Map"
   },
   "header": {
     "switchWarrior": "Switch warrior",
@@ -310,16 +311,7 @@
     "mvwReasonPlaceholder": "Travel, illness, a hard week…",
     "mvwNoAnchors": "Add a daily anchor first.",
     "noWarrior": "No warrior chosen",
-    "chooseWarrior": "Choose a warrior",
-    "ranks": {
-      "initiate": "Initiate",
-      "squire": "Squire",
-      "warrior": "Warrior",
-      "knight": "Knight",
-      "champion": "Champion",
-      "paladin": "Paladin",
-      "mythic": "Mythic"
-    }
+    "chooseWarrior": "Choose a warrior"
   },
   "journal": {
     "title": "Journal",
@@ -431,5 +423,17 @@
     "nothingFound": "Nothing stood out this time. Keep writing.",
     "evidence": "Evidence",
     "confidence": "Confidence {pct}%"
+  },
+  "map": {
+    "title": "Map",
+    "soon": "Coming soon."
+  },
+  "ranks": {
+    "entry": "Ranks",
+    "title": "Ranks",
+    "subtitle": "All 33 levels and where every warrior stands.",
+    "level": "Level {level}",
+    "xp": "{xp} XP",
+    "max": "Max"
   }
 }

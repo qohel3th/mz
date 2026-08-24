@@ -27,7 +27,8 @@
     "dashboard": "לוח",
     "journal": "יומן",
     "reflections": "התבוננות",
-    "onboarding": "זהות"
+    "onboarding": "זהות",
+    "map": "מפה"
   },
   "header": {
     "switchWarrior": "החלף לוחם",
@@ -310,16 +311,7 @@
     "mvwReasonPlaceholder": "נסיעה, מחלה, שבוע קשה…",
     "mvwNoAnchors": "הוסף קודם עוגן יומי.",
     "noWarrior": "לא נבחר לוחם",
-    "chooseWarrior": "בחר לוחם",
-    "ranks": {
-      "initiate": "מתחיל",
-      "squire": "נושא כלים",
-      "warrior": "לוחם",
-      "knight": "אביר",
-      "champion": "אלוף",
-      "paladin": "פלדין",
-      "mythic": "אגדי"
-    }
+    "chooseWarrior": "בחר לוחם"
   },
   "journal": {
     "title": "יומן",
@@ -431,5 +423,17 @@
     "nothingFound": "הפעם שום דבר לא בלט. המשיכו לכתוב.",
     "evidence": "ראיות",
     "confidence": "ביטחון {pct}%"
+  },
+  "map": {
+    "title": "מפה",
+    "soon": "בקרוב."
+  },
+  "ranks": {
+    "entry": "דרגות",
+    "title": "דרגות",
+    "subtitle": "כל 33 הרמות ומיקומו של כל לוחם.",
+    "level": "רמה {level}",
+    "xp": "{xp} נק׳",
+    "max": "מקסימום"
   }
 }
