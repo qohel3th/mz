@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { AppHeader } from "./AppHeader";
 import { BottomNav } from "./BottomNav";
 import { HtmlAttrs } from "./HtmlAttrs";
+import { ReflectionGateBanner } from "@/components/reflections/ReflectionGateBanner";
 
 /** Header + bottom nav frame. The landing route ("/") renders full-bleed without nav. */
 export function AppShell({ children }: { children: ReactNode }) {
@@ -14,6 +15,7 @@ export function AppShell({ children }: { children: ReactNode }) {
     <>
       <HtmlAttrs />
       {!bare && <AppHeader />}
+      {!bare && <ReflectionGateBanner />}
       <main
         className={
           bare
