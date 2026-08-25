@@ -27,7 +27,8 @@ function partsUntil(target: Date, now: Date): Parts {
 const pad2 = (n: number) => String(n).padStart(2, "0");
 
 /**
- * Permanent landing countdown to 2027-01-01 (local).
+ * Permanent landing countdown to 2027-01-01 (local). Digits only — the
+ * landing page owns the surrounding header text.
  * Client-only clock: renders a skeleton until mounted so SSR markup never
  * disagrees with the client. In-flow block — no overlay, no fade.
  */
@@ -55,7 +56,7 @@ export function Countdown() {
   return (
     <section
       aria-live="polite"
-      className="relative flex w-full flex-col items-center gap-5 overflow-hidden px-6 py-8 text-center"
+      className="relative flex w-full flex-col items-center gap-3 overflow-hidden px-6 py-2 text-center"
     >
       {/* ember glow */}
       <div
@@ -67,17 +68,12 @@ export function Countdown() {
         }}
       />
 
-      <header className="relative flex flex-col items-center gap-1">
-        <h2 className="font-display text-gild text-2xl leading-tight xs:text-3xl">{t("countdown.title")}</h2>
-        <p className="text-sm text-fg-muted">{t("countdown.subtitle")}</p>
-      </header>
-
       <div className="relative grid w-full max-w-sm grid-cols-4 gap-2" dir="ltr">
         {parts
           ? cells.map(({ key, value }) => (
               <div key={key} className="flex flex-col items-center gap-1">
                 <span
-                  className="font-display text-gild animate-flicker text-4xl tabular-nums leading-none xs:text-5xl"
+                  className="font-display text-gild animate-flicker text-3xl tabular-nums leading-none xs:text-4xl"
                   style={{ textShadow: "0 0 24px color-mix(in srgb, var(--gold) 55%, transparent)" }}
                 >
                   {value}
@@ -87,7 +83,7 @@ export function Countdown() {
             ))
           : Array.from({ length: 4 }, (_, i) => (
               <div key={i} className="flex flex-col items-center gap-2">
-                <div className="skeleton h-11 w-14 xs:h-12" />
+                <div className="skeleton h-8 w-12 xs:h-9" />
                 <div className="skeleton h-2.5 w-10" />
               </div>
             ))}

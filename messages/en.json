@@ -1,8 +1,7 @@
 {
   "app": {
-    "name": "Warrior Identity Academy",
-    "short": "WIA",
-    "tagline": "Become who you decided to be."
+    "name": "Mission Zero",
+    "short": "MZ"
   },
   "common": {
     "continue": "Continue",
@@ -54,13 +53,14 @@
     "gilded": "Gilded"
   },
   "countdown": {
-    "title": "The year is ending",
-    "subtitle": "Who will you have become?",
     "days": "days",
     "hours": "hours",
     "minutes": "min",
-    "seconds": "sec",
-    "enter": "Enter the Academy"
+    "seconds": "sec"
+  },
+  "landing": {
+    "yearTag": "2027:00",
+    "motto": "Action Cures Anxiety"
   },
   "warriors": {
     "choose": "Choose your warrior",

@@ -1,8 +1,7 @@
 {
   "app": {
-    "name": "אקדמיית זהות הלוחם",
-    "short": "אז\"ל",
-    "tagline": "להפוך למי שהחלטת להיות."
+    "name": "Mission Zero",
+    "short": "MZ"
   },
   "common": {
     "continue": "המשך",
@@ -54,13 +53,14 @@
     "gilded": "זהב"
   },
   "countdown": {
-    "title": "השנה מסתיימת",
-    "subtitle": "למי תהפוך עד אז?",
     "days": "ימים",
     "hours": "שעות",
     "minutes": "דק׳",
-    "seconds": "שנ׳",
-    "enter": "היכנס לאקדמיה"
+    "seconds": "שנ׳"
+  },
+  "landing": {
+    "yearTag": "2027:00",
+    "motto": "Action Cures Anxiety"
   },
   "warriors": {
     "choose": "בחר את הלוחם שלך",

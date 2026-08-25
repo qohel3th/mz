@@ -6,7 +6,7 @@ import type { ThemeId, Warrior } from "@/lib/domain/types";
 import { useStore, useWarriors, useXpEvents } from "@/lib/store";
 import { useT } from "@/lib/i18n/useT";
 import { Button, UserText, cn } from "@/components/ui";
-import { levelFor } from "@/lib/game/progression";
+import { levelFor, levelTitle } from "@/lib/game/progression";
 
 /** Each warrior glows in its own family colour — never the page accent. */
 const FAMILY_COLOR: Record<ThemeId, string> = {
@@ -36,13 +36,11 @@ function WarriorCard({
   const level = levelFor(xp).level;
   const color = FAMILY_COLOR[warrior.theme] ?? FAMILY_COLOR.arcane;
   const bright = FAMILY_COLOR_BRIGHT[warrior.theme] ?? FAMILY_COLOR_BRIGHT.arcane;
-  const archetypeKey = `warriors.archetypes.${warrior.archetype}`;
-  const archetypeLabel = t(archetypeKey);
 
   return (
     <article
       className={cn(
-        "snap-child panel rivets relative flex w-[80vw] max-w-[340px] shrink-0 flex-col items-center gap-4 px-5 pb-5 pt-7 text-center transition-shadow duration-500",
+        "snap-child panel rivets relative flex w-[80vw] max-w-[340px] shrink-0 flex-col items-center gap-2.5 px-4 pb-4 pt-4 text-center transition-shadow duration-500",
       )}
       style={
         {
@@ -60,7 +58,7 @@ function WarriorCard({
     >
       {/* sigil in a glowing ring */}
       <div
-        className={cn("flex h-24 w-24 items-center justify-center rounded-full text-5xl", active && "animate-flicker")}
+        className={cn("flex h-14 w-14 items-center justify-center rounded-full text-3xl", active && "animate-flicker")}
         style={{
           background: "radial-gradient(circle, color-mix(in srgb, var(--family) 35%, transparent), transparent 70%)",
           boxShadow:
@@ -72,34 +70,31 @@ function WarriorCard({
       </div>
 
       <div className="flex flex-col items-center gap-1">
-        <UserText as="h2" text={warrior.name} className="font-display text-2xl leading-tight text-fg" />
-        <UserText as="p" text={warrior.epithet} className="text-sm italic text-fg-muted" />
+        <UserText as="h2" text={warrior.name} className="font-display text-xl leading-tight text-fg" />
         <span
-          className="mt-1 rounded-full border px-2.5 py-0.5 text-[10px] uppercase tracking-[0.25em]"
+          className="rounded-full border px-2.5 py-0.5 text-[10px] uppercase tracking-[0.25em]"
           style={{ borderColor: "color-mix(in srgb, var(--family-2) 60%, transparent)", color: bright }}
         >
-          {archetypeLabel === archetypeKey ? <UserText text={warrior.archetype} /> : archetypeLabel}
+          {levelTitle(level)}
         </span>
       </div>
 
       <dl className="grid w-full grid-cols-3 gap-2 text-center">
-        <div className="rounded-xl bg-bg-2/60 px-1 py-2">
+        <div className="rounded-xl bg-bg-2/60 px-1 py-1.5">
           <dt className="text-[10px] uppercase tracking-widest text-fg-faint">{t("warriors.levelLabel")}</dt>
-          <dd className="font-display text-lg tabular-nums" style={{ color: bright }}>
+          <dd className="font-display text-base tabular-nums" style={{ color: bright }}>
             {level}
           </dd>
         </div>
-        <div className="rounded-xl bg-bg-2/60 px-1 py-2">
+        <div className="rounded-xl bg-bg-2/60 px-1 py-1.5">
           <dt className="text-[10px] uppercase tracking-widest text-fg-faint">{t("warriors.xpLabel")}</dt>
-          <dd className="font-display text-lg tabular-nums text-fg">{xp}</dd>
+          <dd className="font-display text-base tabular-nums text-fg">{xp}</dd>
         </div>
-        <div className="rounded-xl bg-bg-2/60 px-1 py-2">
+        <div className="rounded-xl bg-bg-2/60 px-1 py-1.5">
           <dt className="text-[10px] uppercase tracking-widest text-fg-faint">{t("warriors.streakLabel")}</dt>
-          <dd className="font-display text-lg tabular-nums text-fg">{warrior.streak.current}</dd>
+          <dd className="font-display text-base tabular-nums text-fg">{warrior.streak.current}</dd>
         </div>
       </dl>
-      <p className="-mt-2 text-xs text-fg-faint">{t("warriors.level", { level })}</p>
-
       <Button
         variant="primary"
         block
@@ -163,11 +158,11 @@ export function WarriorCarousel() {
   };
 
   return (
-    <section className="flex w-full flex-col items-center gap-4" aria-label={t("warriors.choose")}>
+    <section className="flex w-full flex-col items-center gap-2" aria-label={t("warriors.choose")}>
       <div
         ref={scrollerRef}
         onScroll={syncIndex}
-        className="snap-x-mandatory flex w-full gap-4 overflow-x-auto px-[10vw] py-3"
+        className="snap-x-mandatory flex w-full gap-4 overflow-x-auto px-[10vw] py-2"
         style={{ scrollPaddingInline: "10vw" }}
       >
         {warriors.map((w) => (
