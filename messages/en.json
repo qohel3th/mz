@@ -25,7 +25,7 @@
     "home": "Home",
     "dashboard": "Dashboard",
     "journal": "Journal",
-    "reflections": "Reflections",
+    "reflections": "Reflection",
     "onboarding": "Identity",
     "map": "Map"
   },
@@ -311,7 +311,12 @@
     "mvwReasonPlaceholder": "Travel, illness, a hard week…",
     "mvwNoAnchors": "Add a daily anchor first.",
     "noWarrior": "No warrior chosen",
-    "chooseWarrior": "Choose a warrior"
+    "chooseWarrior": "Choose a warrior",
+    "identityEmpty": {
+      "title": "Identity not forged yet",
+      "body": "Set your ideal selves, life rules and first practice.",
+      "cta": "Begin"
+    }
   },
   "journal": {
     "title": "Journal",

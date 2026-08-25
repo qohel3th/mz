@@ -311,7 +311,12 @@
     "mvwReasonPlaceholder": "נסיעה, מחלה, שבוע קשה…",
     "mvwNoAnchors": "הוסף קודם עוגן יומי.",
     "noWarrior": "לא נבחר לוחם",
-    "chooseWarrior": "בחר לוחם"
+    "chooseWarrior": "בחר לוחם",
+    "identityEmpty": {
+      "title": "הזהות עוד לא נבנתה",
+      "body": "קבע את העצמי האידיאלי, חוקי החיים והתרגול הראשון.",
+      "cta": "התחל"
+    }
   },
   "journal": {
     "title": "יומן",

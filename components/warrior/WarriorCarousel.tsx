@@ -152,11 +152,10 @@ export function WarriorCarousel() {
     child?.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
   };
 
-  const onboardingMap = state.onboarding;
+  /* selection always lands on the dashboard; it shows an identity nudge if onboarding is unfinished */
   const select = async (w: Warrior) => {
     await actions.setActiveWarrior(w.id);
-    const done = Boolean(onboardingMap[w.id]?.completedAt);
-    router.push(done ? "/dashboard" : "/onboarding");
+    router.push("/dashboard");
   };
 
   return (
