@@ -1,5 +1,5 @@
 /**
- * Warrior Identity Academy — domain types.
+ * Mission Zero — domain types.
  * FROZEN CONTRACT: every persisted record carries `id` and `warriorId`
  * (except the app-level singleton). Do not add new shared abstractions
  * here from feature code; extend via the optional fields provided.

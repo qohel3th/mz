@@ -33,7 +33,7 @@ function otherLocale(locale: Locale): Locale {
 export function serializePrompt(ctx: ExternalContext): string {
   const target = otherLocale(ctx.locale);
   const lines: string[] = [];
-  lines.push("You are helping a member of the Warrior Identity Academy polish a personal record.");
+  lines.push("You are helping a member of Mission Zero polish a personal record.");
   lines.push("");
   lines.push(`Record: ${ctx.recordType}/${ctx.recordId}`);
   lines.push(`Language of the original: ${LOCALE_NAMES[ctx.locale]} (${ctx.locale})`);

@@ -2,9 +2,9 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Warrior Identity Academy",
-    short_name: "WIA",
-    description: "Become who you decided to be.",
+    name: "Mission Zero",
+    short_name: "MZ",
+    description: "Action Cures Anxiety.",
     start_url: "/",
     display: "standalone",
     orientation: "portrait",

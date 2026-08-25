@@ -1,4 +1,4 @@
-# Warrior Identity Academy (MVP)
+# Mission Zero (MVP)
 
 Mobile-first, bilingual (EN/HE, RTL-aware) Next.js + Tailwind app: a cinematic year countdown,
 per-warrior profiles, an identity onboarding journey (from the *Identity Workshop*), an RPG

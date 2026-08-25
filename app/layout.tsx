@@ -14,14 +14,14 @@ const hebrew = Frank_Ruhl_Libre({
 });
 
 export const metadata: Metadata = {
-  title: "Warrior Identity Academy",
-  description: "Become who you decided to be. A mobile identity + practice academy.",
-  applicationName: "Warrior Identity Academy",
+  title: "Mission Zero",
+  description: "Action Cures Anxiety. A mobile identity + practice academy.",
+  applicationName: "Mission Zero",
   manifest: "/manifest.webmanifest",
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
-    title: "WIA",
+    title: "MZ",
   },
   icons: {
     icon: [

@@ -1,4 +1,4 @@
--- Warrior Identity Academy — Supabase schema (mirror of lib/domain/types.ts)
+-- Mission Zero — Supabase schema (mirror of lib/domain/types.ts)
 -- Not applied by the app yet: the Supabase repository driver is a stub.
 -- Every feature table carries warrior_id → warriors(id) so all data is namespaced per warrior.
 
