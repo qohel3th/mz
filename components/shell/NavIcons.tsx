@@ -25,27 +25,27 @@ function Base({ children, ...rest }: IconProps) {
   );
 }
 
-/** Identity — engraved seal: outer ring, inner diamond sigil, four notches. */
+/** Identity — a hand mirror: the self, seen. */
 export function IdentityIcon(p: IconProps) {
   return (
     <Base {...p}>
-      <circle cx="12" cy="12" r="8.5" />
-      <path d="M12 6.5 17.5 12 12 17.5 6.5 12Z" />
-      <path d="M12 9.5v5M9.5 12h5" />
-      <path d="M12 2.5v1.5M12 20v1.5M2.5 12H4M20 12h1.5" />
+      <ellipse cx="12" cy="9" rx="5.6" ry="6.4" />
+      <ellipse cx="12" cy="9" rx="3.6" ry="4.4" />
+      <path d="M12 15.4v2.2" />
+      <path d="M9.4 20.5c.9-1.9 1.8-2.9 2.6-2.9s1.7 1 2.6 2.9" />
+      <path d="M10.3 6.6c.5-.9 1.2-1.4 2-1.5" />
     </Base>
   );
 }
 
-/** Map — brass astrolabe: ring, inner rete arc, cross-hairs, pivot. */
+/** Map — a folded parchment chart with a dotted route ending at an X. */
 export function MapIcon(p: IconProps) {
   return (
     <Base {...p}>
-      <circle cx="12" cy="12" r="8.5" />
-      <circle cx="12" cy="12" r="4.5" />
-      <path d="M12 3.5v4M12 16.5v4M3.5 12h4M16.5 12h4" />
-      <path d="M6.2 6.2 8.8 8.8M15.2 15.2l2.6 2.6" />
-      <circle cx="12" cy="12" r="0.9" fill="currentColor" stroke="none" />
+      <path d="M3.5 6.5 9 4.5l6 2 5.5-2v13l-5.5 2-6-2-5.5 2Z" />
+      <path d="M9 4.5v13M15 6.5v13" />
+      <path d="M5.5 15.5c1.6-1.2 2.7-1 3.6.2 1 1.3 2.2.9 3.2-.6" strokeDasharray="1.6 1.8" />
+      <path d="M16.6 9.4l2.2 2.2M18.8 9.4l-2.2 2.2" />
     </Base>
   );
 }
@@ -73,28 +73,27 @@ export function JournalIcon(p: IconProps) {
   );
 }
 
-/** Reflection — crescent inside a riveted ring. */
+/** Reflection — a crescent moon over still water. */
 export function ReflectionIcon(p: IconProps) {
   return (
     <Base {...p}>
-      <circle cx="12" cy="12" r="9" />
-      <path d="M14.6 7.2a5 5 0 1 0 2.2 8.9 6 6 0 0 1-2.2-8.9Z" />
-      <circle cx="12" cy="3.6" r="0.6" fill="currentColor" stroke="none" />
-      <circle cx="12" cy="20.4" r="0.6" fill="currentColor" stroke="none" />
-      <circle cx="3.6" cy="12" r="0.6" fill="currentColor" stroke="none" />
-      <circle cx="20.4" cy="12" r="0.6" fill="currentColor" stroke="none" />
+      <path d="M14.8 3.6a6.2 6.2 0 1 0 3.9 9.6 7 7 0 0 1-3.9-9.6Z" />
+      <path d="M3.5 17.2c1.6 1.2 3.1 1.2 4.7 0s3.1-1.2 4.7 0 3.1 1.2 4.7 0 3.1-1.2 4.9 0" />
+      <path d="M5 20.4c1.4 1 2.7 1 4.1 0s2.7-1 4.1 0 2.7 1 4.1 0" />
+      <path d="M6.2 5.2v1.6M5.4 6h1.6" />
     </Base>
   );
 }
 
-/** Brand mark — hexagon with a rising blade (the MZ crest). */
+/** Brand mark — two crossed swords. */
 export function BrandMark(p: IconProps) {
   return (
     <Base {...p}>
-      <path d="M12 2.8l8 4.6v9.2l-8 4.6-8-4.6V7.4Z" />
-      <path d="M12 6.5v10" />
-      <path d="M9 13.5h6" />
-      <path d="M10.4 8.4 12 6.5l1.6 1.9" />
+      <path d="M4 4l11.5 11.5M20 4 8.5 15.5" />
+      <path d="M4 4h3.2M4 4v3.2M20 4h-3.2M20 4v3.2" />
+      <path d="M13.5 13.5 18 18M10.5 13.5 6 18" />
+      <path d="M15.6 17.4l1.2-1.2M8.4 17.4l-1.2-1.2" />
+      <path d="M18 18l1.5 1.5M6 18l-1.5 1.5" />
     </Base>
   );
 }

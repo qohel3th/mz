@@ -1,6 +1,8 @@
 "use client";
 
+import Image from "next/image";
 import { Panel, ProgressBar, Stat, UserText } from "@/components/ui";
+import { PORTRAITS } from "@/components/warrior/portraits";
 import { useT } from "@/lib/i18n/useT";
 import { useActiveIdealSelf, useMinimumViableWeeks, useTotalXp } from "@/lib/store";
 import { todayKey } from "@/lib/domain/ids";
@@ -19,9 +21,19 @@ export function HeroCard({ warrior }: { warrior: Warrior }) {
   return (
     <Panel variant="accent" rivets className="animate-rise-in">
       <div className="flex items-center gap-3">
-        <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-strong bg-bg-3 text-3xl shadow-[0_0_24px_-6px_var(--accent)]">
-          <span aria-hidden>{warrior.sigil}</span>
-        </div>
+        {PORTRAITS[warrior.id] ? (
+          <Image
+            src={PORTRAITS[warrior.id]}
+            alt=""
+            width={112}
+            height={112}
+            className="h-14 w-14 shrink-0 rounded-full border border-gold/60 object-cover object-top shadow-[0_0_24px_-6px_var(--accent)]"
+          />
+        ) : (
+          <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-border-strong bg-bg-3 text-3xl shadow-[0_0_24px_-6px_var(--accent)]">
+            <span aria-hidden>{warrior.sigil}</span>
+          </div>
+        )}
         <div className="min-w-0 flex-1">
           <UserText as="h1" text={warrior.name} className="font-display truncate text-2xl leading-tight text-gild" />
           {idealSelf && <UserText as="p" text={idealSelf.tagline} className="truncate text-sm text-fg-muted" />}
@@ -51,7 +63,9 @@ export function HeroCard({ warrior }: { warrior: Warrior }) {
           label={t("dashboard.streak")}
           value={
             <span className="inline-flex items-center gap-1">
-              <span aria-hidden>🔥</span>
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden className="text-red-2">
+                <path d="M12 3c1 3 4 4.5 4 8.5a4 4 0 0 1-8 0c0-1.6.6-2.6 1.3-3.5.3 1.2.9 1.8 1.7 2.1C11.6 8 11.4 5.5 12 3Z" />
+              </svg>
               {streak.current}
             </span>
           }
