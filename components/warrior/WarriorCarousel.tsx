@@ -71,7 +71,7 @@ function WarriorCard({
 
       {/* content anchored to the bottom */}
       <div className="absolute inset-x-0 bottom-0 flex flex-col items-center gap-2 px-4 pb-4 text-center">
-        <UserText as="h2" text={warrior.name} className="font-display text-gild text-3xl leading-none" />
+        <UserText as="h2" text={warrior.name} className="hero-name font-display text-3xl leading-none" />
         <span
           className="font-display text-[11px] uppercase tracking-[0.3em]"
           style={{ color: bright, textShadow: "0 0 12px color-mix(in srgb, var(--family) 70%, transparent)" }}

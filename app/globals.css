@@ -27,9 +27,9 @@
   --purple: #6d28d9;
   --purple-2: #8b5cf6;
   --purple-3: #2e1065;
-  --red: #b91c1c;
-  --red-2: #ef4444;
-  --red-3: #450a0a;
+  --red: #b3202a;
+  --red-2: #f0545a;
+  --red-3: #3a0a10;
   --gold: #d4a017;
   --gold-2: #f2c14e;
   --gold-3: #6b4f0b;
@@ -121,7 +121,7 @@ body {
 body {
   font-family: var(--font-sans);
   background-image:
-    radial-gradient(1200px 600px at 50% -10%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 60%),
+    radial-gradient(1200px 600px at 50% -10%, color-mix(in srgb, var(--accent) 30%, transparent), transparent 60%),
     radial-gradient(800px 400px at 100% 100%, color-mix(in srgb, var(--gold) 8%, transparent), transparent 60%),
     linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
   background-attachment: fixed;
@@ -138,8 +138,42 @@ body::before {
   opacity: 0.35;
   background-image:
     repeating-linear-gradient(0deg, transparent 0 3px, rgba(212, 160, 23, 0.025) 3px 4px),
-    repeating-linear-gradient(90deg, transparent 0 3px, rgba(109, 40, 217, 0.02) 3px 4px);
+    repeating-linear-gradient(90deg, transparent 0 3px, color-mix(in srgb, var(--accent) 8%, transparent) 3px 4px);
 }
+
+/* ------------------------------------------------------------------
+   Theme aura: two fixed glow layers (arcane / ember) that crossfade
+   with <html data-theme>, so the whole page glides between purple and red.
+   ------------------------------------------------------------------ */
+.aura {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0;
+  transition: opacity 800ms ease;
+}
+.aura-arcane {
+  background:
+    radial-gradient(70% 45% at 50% 0%, rgba(139, 92, 246, 0.32), transparent 70%),
+    radial-gradient(60% 40% at 15% 100%, rgba(109, 40, 217, 0.28), transparent 70%),
+    radial-gradient(50% 35% at 90% 70%, rgba(139, 92, 246, 0.16), transparent 70%);
+}
+.aura-ember {
+  background:
+    radial-gradient(70% 45% at 50% 0%, rgba(240, 84, 90, 0.30), transparent 70%),
+    radial-gradient(60% 40% at 15% 100%, rgba(179, 32, 42, 0.30), transparent 70%),
+    radial-gradient(50% 35% at 90% 70%, rgba(240, 84, 90, 0.16), transparent 70%);
+}
+.aura-gilded {
+  background:
+    radial-gradient(70% 45% at 50% 0%, rgba(242, 193, 78, 0.22), transparent 70%),
+    radial-gradient(60% 40% at 15% 100%, rgba(212, 160, 23, 0.22), transparent 70%);
+}
+html[data-theme="arcane"] .aura-arcane,
+html:not([data-theme]) .aura-arcane { opacity: 1; }
+html[data-theme="ember"] .aura-ember { opacity: 1; }
+html[data-theme="gilded"] .aura-gilded { opacity: 1; }
 
 h1, h2, h3, .font-display {
   font-family: var(--font-display);
@@ -225,7 +259,7 @@ input.bidi {
 .hero-card {
   border-radius: 1.1rem;
   background: var(--bg-3);
-  border: 1px solid color-mix(in srgb, var(--gold) 45%, transparent);
+  border: 1px solid color-mix(in srgb, var(--family-2) 55%, transparent);
   transition: box-shadow 500ms ease, transform 500ms ease, filter 500ms ease;
 }
 .hero-card-idle {
@@ -253,9 +287,9 @@ input.bidi {
   font-size: 0.72rem;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: var(--gold-2);
+  color: var(--family-2);
   background: rgba(10, 6, 14, 0.55);
-  border: 1px solid color-mix(in srgb, var(--gold) 60%, transparent);
+  border: 1px solid color-mix(in srgb, var(--family-2) 65%, transparent);
   backdrop-filter: blur(8px);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 0 0 0 transparent;
   transition: box-shadow 300ms ease, background 300ms ease, transform 150ms ease;
@@ -263,10 +297,10 @@ input.bidi {
 .hero-btn:hover { box-shadow: 0 0 22px -6px var(--family); }
 .hero-btn:active { transform: scale(0.98); }
 .hero-btn-active {
-  color: var(--bg);
-  background: linear-gradient(180deg, var(--gold-2), var(--gold));
-  border-color: var(--gold-2);
-  box-shadow: 0 8px 22px -10px var(--gold);
+  color: #fff;
+  background: linear-gradient(180deg, var(--family-2), var(--family));
+  border-color: color-mix(in srgb, #fff 35%, var(--family-2));
+  box-shadow: 0 8px 22px -10px var(--family);
 }
 .hero-card-active {
   box-shadow:
@@ -280,34 +314,42 @@ input.bidi {
     linear-gradient(0deg, color-mix(in srgb, var(--family) 18%, transparent), transparent 55%);
 }
 .hero-card-frame {
-  border: 1px solid color-mix(in srgb, var(--gold) 38%, transparent);
+  border: 1px solid color-mix(in srgb, var(--family-2) 40%, transparent);
   pointer-events: none;
   /* corner marks */
   background:
-    linear-gradient(var(--gold-2), var(--gold-2)) 0 0 / 14px 1.5px no-repeat,
-    linear-gradient(var(--gold-2), var(--gold-2)) 0 0 / 1.5px 14px no-repeat,
-    linear-gradient(var(--gold-2), var(--gold-2)) 100% 0 / 14px 1.5px no-repeat,
-    linear-gradient(var(--gold-2), var(--gold-2)) 100% 0 / 1.5px 14px no-repeat,
-    linear-gradient(var(--gold-2), var(--gold-2)) 0 100% / 14px 1.5px no-repeat,
-    linear-gradient(var(--gold-2), var(--gold-2)) 0 100% / 1.5px 14px no-repeat,
-    linear-gradient(var(--gold-2), var(--gold-2)) 100% 100% / 14px 1.5px no-repeat,
-    linear-gradient(var(--gold-2), var(--gold-2)) 100% 100% / 1.5px 14px no-repeat;
+    linear-gradient(var(--family-2), var(--family-2)) 0 0 / 14px 1.5px no-repeat,
+    linear-gradient(var(--family-2), var(--family-2)) 0 0 / 1.5px 14px no-repeat,
+    linear-gradient(var(--family-2), var(--family-2)) 100% 0 / 14px 1.5px no-repeat,
+    linear-gradient(var(--family-2), var(--family-2)) 100% 0 / 1.5px 14px no-repeat,
+    linear-gradient(var(--family-2), var(--family-2)) 0 100% / 14px 1.5px no-repeat,
+    linear-gradient(var(--family-2), var(--family-2)) 0 100% / 1.5px 14px no-repeat,
+    linear-gradient(var(--family-2), var(--family-2)) 100% 100% / 14px 1.5px no-repeat,
+    linear-gradient(var(--family-2), var(--family-2)) 100% 100% / 1.5px 14px no-repeat;
 }
 .hero-crest {
   border-radius: 999px;
   color: #fff;
   background: radial-gradient(circle at 35% 30%, var(--family-2), var(--family) 70%);
-  border: 1px solid color-mix(in srgb, var(--gold-2) 70%, transparent);
+  border: 1px solid color-mix(in srgb, #fff 45%, var(--family-2));
   box-shadow: 0 0 18px -2px var(--family), inset 0 1px 0 rgba(255, 255, 255, 0.25);
 }
 .hero-stats {
   border-radius: 0.8rem;
   background: rgba(255, 255, 255, 0.05);
-  border: 1px solid color-mix(in srgb, var(--gold) 22%, transparent);
+  border: 1px solid color-mix(in srgb, var(--family-2) 28%, transparent);
   backdrop-filter: blur(8px);
 }
 .hero-stats > div + div {
-  border-inline-start: 1px solid color-mix(in srgb, var(--gold) 18%, transparent);
+  border-inline-start: 1px solid color-mix(in srgb, var(--family-2) 22%, transparent);
+}
+/* name in the family colour, lit from above */
+.hero-name {
+  background: linear-gradient(180deg, #fff 0%, var(--family-2) 45%, var(--family) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 14px color-mix(in srgb, var(--family) 60%, transparent));
 }
 
 /* scroll snap replay */

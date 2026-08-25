@@ -46,7 +46,7 @@ export default function Home() {
       <div className="flex shrink-0 justify-center">
         <Link
           href="/ranks"
-          className="inline-flex h-9 items-center gap-2 rounded-full border border-gold/50 bg-panel px-4 text-xs font-semibold uppercase tracking-widest text-gold-2 hover:bg-panel-strong"
+          className="inline-flex h-9 items-center gap-2 rounded-full border border-accent-2/60 bg-panel px-4 text-xs font-semibold uppercase tracking-widest text-accent-2 shadow-[0_0_22px_-8px_var(--accent)] transition-colors duration-700 hover:bg-panel-strong"
         >
           <span aria-hidden>♛</span>
           {t("ranks.entry")}

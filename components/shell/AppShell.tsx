@@ -15,6 +15,9 @@ export function AppShell({ children }: { children: ReactNode }) {
   return (
     <>
       <HtmlAttrs />
+      <div aria-hidden className="aura aura-arcane" />
+      <div aria-hidden className="aura aura-ember" />
+      <div aria-hidden className="aura aura-gilded" />
       <StoreErrorBanner />
       {!bare && <AppHeader />}
       {!bare && <ReflectionGateBanner />}
