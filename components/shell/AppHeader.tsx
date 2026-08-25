@@ -34,9 +34,13 @@ export function AppHeader() {
           ) : warrior ? (
             <>
               {PORTRAITS[warrior.id] ? (
-                <span className="relative h-7 w-7 shrink-0 overflow-hidden rounded-full border border-gold/50 shadow-[0_0_10px_-3px_var(--gold)]">
-                  <Image src={PORTRAITS[warrior.id]} alt="" fill sizes="28px" className="object-cover object-top" />
-                </span>
+                <Image
+                  src={PORTRAITS[warrior.id]}
+                  alt=""
+                  width={56}
+                  height={56}
+                  className="h-7 w-7 shrink-0 rounded-full border border-gold/50 object-cover object-top shadow-[0_0_10px_-3px_var(--gold)]"
+                />
               ) : (
                 <span aria-hidden>{warrior.sigil}</span>
               )}
