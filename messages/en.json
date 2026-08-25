@@ -434,6 +434,8 @@
     "subtitle": "All 33 levels and where every warrior stands.",
     "level": "Level {level}",
     "xp": "{xp} XP",
-    "max": "Max"
+    "max": "Max",
+    "back": "Back",
+    "you": "You are here"
   }
 }

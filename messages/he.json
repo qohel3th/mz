@@ -434,6 +434,8 @@
     "subtitle": "כל 33 הרמות ומיקומו של כל לוחם.",
     "level": "רמה {level}",
     "xp": "{xp} נק׳",
-    "max": "מקסימום"
+    "max": "מקסימום",
+    "back": "Back",
+    "you": "You are here"
   }
 }

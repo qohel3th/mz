@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import type { ThemeId, Warrior } from "@/lib/domain/types";
 import { useStore, useWarriors, useXpEvents } from "@/lib/store";
 import { useT } from "@/lib/i18n/useT";
-import { Button, UserText, cn } from "@/components/ui";
+import { UserText, cn } from "@/components/ui";
 import { levelFor, levelTitle } from "@/lib/game/progression";
 import { PORTRAITS } from "./portraits";
 
@@ -26,10 +26,12 @@ const FAMILY_COLOR_BRIGHT: Record<ThemeId, string> = {
 function WarriorCard({
   warrior,
   active,
+  focused,
   onSelect,
 }: {
   warrior: Warrior;
   active: boolean;
+  focused: boolean;
   onSelect: (w: Warrior) => void;
 }) {
   const { t } = useT();
@@ -44,8 +46,9 @@ function WarriorCard({
   return (
     <article
       className={cn(
-        "hero-card snap-child relative my-3 h-[min(24rem,53dvh)] w-[78vw] max-w-[320px] shrink-0 overflow-hidden",
-        active ? "hero-card-active" : "hero-card-idle",
+        "hero-card snap-child relative my-3 h-[min(24rem,53dvh)] w-[76vw] max-w-[320px] shrink-0 overflow-hidden",
+        focused ? "hero-card-focused" : "hero-card-idle",
+        active && "hero-card-active",
       )}
       style={{ "--family": color, "--family-2": bright } as CSSProperties}
       aria-current={active ? "true" : undefined}
@@ -89,21 +92,14 @@ function WarriorCard({
           ))}
         </dl>
 
-        <Button
-          variant="primary"
-          block
-          size="sm"
+        <button
+          type="button"
           onClick={() => onSelect(warrior)}
-          className="hover:brightness-110"
-          style={{
-            background: `linear-gradient(180deg, ${bright}, ${color})`,
-            color: warrior.theme === "gilded" ? "var(--bg-2)" : "#fff",
-            boxShadow: `0 8px 20px -8px ${color}`,
-          }}
+          className={cn("hero-btn font-display", active && "hero-btn-active")}
           aria-pressed={active}
         >
           {active ? t("warriors.selected") : t("warriors.select")}
-        </Button>
+        </button>
       </div>
     </article>
   );
@@ -145,6 +141,12 @@ export function WarriorCarousel() {
     syncIndex();
   }, [syncIndex, warriors.length]);
 
+  /* live theme preview: the focused card's family colours drive the page accent */
+  useEffect(() => {
+    const focusedWarrior = warriors[index];
+    if (focusedWarrior) document.documentElement.dataset.theme = focusedWarrior.theme;
+  }, [index, warriors]);
+
   const scrollTo = (i: number) => {
     const child = scrollerRef.current?.children[i] as HTMLElement | undefined;
     child?.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
@@ -162,11 +164,11 @@ export function WarriorCarousel() {
       <div
         ref={scrollerRef}
         onScroll={syncIndex}
-        className="snap-x-mandatory flex w-full gap-4 overflow-x-auto px-[10vw] py-2"
-        style={{ scrollPaddingInline: "10vw" }}
+        className="snap-x-mandatory flex w-full gap-7 overflow-x-auto px-[12vw] py-2"
+        style={{ scrollPaddingInline: "12vw" }}
       >
-        {warriors.map((w) => (
-          <WarriorCard key={w.id} warrior={w} active={w.id === activeId} onSelect={select} />
+        {warriors.map((w, i) => (
+          <WarriorCard key={w.id} warrior={w} active={w.id === activeId} focused={i === index} onSelect={select} />
         ))}
       </div>
 

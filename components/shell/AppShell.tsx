@@ -8,10 +8,10 @@ import { HtmlAttrs } from "./HtmlAttrs";
 import { ReflectionGateBanner } from "@/components/reflections/ReflectionGateBanner";
 import { StoreErrorBanner } from "./StoreErrorBanner";
 
-/** Header + bottom nav frame. The landing route ("/") renders full-bleed without nav. */
+/** Header + bottom nav frame. "/" and "/ranks" render full-bleed without header/nav. */
 export function AppShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
-  const bare = pathname === "/";
+  const bare = pathname === "/" || pathname === "/ranks";
   return (
     <>
       <HtmlAttrs />

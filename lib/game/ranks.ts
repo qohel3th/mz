@@ -13,25 +13,25 @@ export const RANK_TITLES: readonly string[] = [
   "Looksmaxxer", // 8
   "Mogged but Motivated", // 9
   "Middle G", // 10
-  "Discipline Merchant", // 11
-  "Chad Lite", // 12
-  "Monk Mode Initiate", // 13
+  "Alarm Clock Slayer", // 11
+  "Cold Shower Survivor", // 12
+  "Monk Mode Activated", // 13
   "The Mentalist", // 14
-  "Frame Holder", // 15
-  "Alpha Provider", // 16
+  "Frame Never Breaks", // 15
+  "Phone in Another Room", // 16
   "Giga Chad", // 17
-  "Stoic Sovereign", // 18
-  "Apex Predator", // 19
+  "Certified Mogger", // 18
+  "Apex Grindset", // 19
   "High G", // 20
-  "Lion of the Arena", // 21
-  "Wolf of Wall Street", // 22
-  "Warlord of Focus", // 23
-  "Mogger Supreme", // 24
+  "Dopamine Detoxed", // 21
+  "Lion Diet Enjoyer", // 22
+  "Owner of the Morning", // 23
+  "Excuses Extinct", // 24
   "The Architect", // 25
-  "Kingmaker", // 26
-  "Dragon Tamer", // 27
-  "Emperor of Mornings", // 28
-  "Titan Mode", // 29
+  "Sigma Grindmaster", // 26
+  "Comfort Zone Destroyer", // 27
+  "Emperor of 5 AM", // 28
+  "Absolute Unit", // 29
   "Top G", // 30
   "Half God", // 31
   "Demon Slayer", // 32

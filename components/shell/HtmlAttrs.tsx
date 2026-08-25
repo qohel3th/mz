@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { useActiveWarrior } from "@/lib/store";
 
 /**
@@ -14,6 +15,7 @@ import { useActiveWarrior } from "@/lib/store";
 export function HtmlAttrs() {
   const warrior = useActiveWarrior();
   const theme = warrior?.theme ?? "arcane";
+  const pathname = usePathname();
 
   useEffect(() => {
     const el = document.documentElement;
@@ -21,9 +23,11 @@ export function HtmlAttrs() {
     el.dir = "ltr";
   }, []);
 
+  /* re-applied on every route change so the landing page's swipe preview never leaks */
   useEffect(() => {
+    if (pathname === "/") return; // the carousel previews the focused warrior's theme there
     document.documentElement.dataset.theme = theme;
-  }, [theme]);
+  }, [theme, pathname]);
 
   return null;
 }
