@@ -17,6 +17,33 @@ const FAMILY_COLOR: Record<ThemeId, string> = {
 
 /** Per-row stagger for the entrance animation (ms). */
 const STAGGER_MS = 28;
+/** Duration of the glide down to your rank (ms). */
+const GLIDE_MS = 2600;
+
+const easeInOutCubic = (x: number) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
+
+/** Slow, eased window scroll that centres `el`. Returns a cancel function. */
+function glideTo(el: HTMLElement, duration: number): () => void {
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const startY = window.scrollY;
+  const rect = el.getBoundingClientRect();
+  const targetY = startY + rect.top - (window.innerHeight - rect.height) / 2;
+  const maxY = document.documentElement.scrollHeight - window.innerHeight;
+  const endY = Math.max(0, Math.min(maxY, targetY));
+  if (reduce) {
+    window.scrollTo(0, endY);
+    return () => {};
+  }
+  let raf = 0;
+  const t0 = performance.now();
+  const step = (now: number) => {
+    const p = Math.min(1, (now - t0) / duration);
+    window.scrollTo(0, startY + (endY - startY) * easeInOutCubic(p));
+    if (p < 1) raf = requestAnimationFrame(step);
+  };
+  raf = requestAnimationFrame(step);
+  return () => cancelAnimationFrame(raf);
+}
 
 /**
  * Standalone Ranks screen: a vertical ladder of all 33 levels with every
@@ -55,14 +82,19 @@ export function RanksLadder() {
     [],
   );
 
-  /* after the entrance animation reaches your row, glide to it */
+  /* once the cascade has started, glide slowly down the ladder to your row */
   useEffect(() => {
     if (!hydrated || !yourLevel) return;
     const row = rowRefs.current.get(yourLevel);
     if (!row) return;
-    const delay = (MAX_LEVEL - yourLevel) * STAGGER_MS + 350;
-    const id = window.setTimeout(() => row.scrollIntoView({ behavior: "smooth", block: "center" }), delay);
-    return () => window.clearTimeout(id);
+    let cancel = () => {};
+    const id = window.setTimeout(() => {
+      cancel = glideTo(row, GLIDE_MS);
+    }, 600);
+    return () => {
+      window.clearTimeout(id);
+      cancel();
+    };
   }, [hydrated, yourLevel]);
 
   return (
