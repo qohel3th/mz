@@ -43,52 +43,48 @@ function WarriorCard({
 
   return (
     <article
-      className="snap-child relative my-3 w-[78vw] max-w-[320px] shrink-0"
+      className={cn(
+        "hero-card snap-child relative my-3 h-[min(24rem,53dvh)] w-[78vw] max-w-[320px] shrink-0 overflow-hidden",
+        active ? "hero-card-active" : "hero-card-idle",
+      )}
       style={{ "--family": color, "--family-2": bright } as CSSProperties}
       aria-current={active ? "true" : undefined}
     >
-      {/* top scroll rod */}
-      <div aria-hidden className="scroll-rod -top-2.5" />
+      {/* portrait, full bleed */}
+      {portrait ? (
+        <Image src={portrait} alt="" fill sizes="320px" loading="eager" className="object-cover object-top" />
+      ) : (
+        <div className="absolute inset-0 grid place-items-center text-7xl">{warrior.sigil}</div>
+      )}
+      {/* fade into the base + family tint */}
+      <div aria-hidden className="hero-card-veil absolute inset-0" />
+      {/* gilded inner frame with corner marks */}
+      <div aria-hidden className="hero-card-frame absolute inset-2 rounded-xl" />
 
-      {/* parchment body */}
-      <div
-        className={cn("scroll-parchment relative flex flex-col items-center gap-2 px-4 pb-4 pt-5 text-center", active && "scroll-parchment-active")}
-      >
-        {/* portrait in a gilded frame */}
-        <div className="scroll-frame relative h-32 w-[6.4rem] overflow-hidden">
-          {portrait ? (
-            <Image
-              src={portrait}
-              alt=""
-              fill
-              sizes="120px"
-              priority={active}
-              className="object-cover"
-            />
-          ) : (
-            <span className="grid h-full w-full place-items-center text-5xl">{warrior.sigil}</span>
-          )}
-        </div>
+      {/* level crest */}
+      <div className="hero-crest absolute start-4 top-4 grid h-10 w-10 place-items-center font-display text-base tabular-nums">
+        {level}
+      </div>
 
-        <UserText as="h2" text={warrior.name} className="scroll-ink font-display text-2xl leading-none" />
-
-        {/* rank ribbon in the warrior's family colour */}
+      {/* content anchored to the bottom */}
+      <div className="absolute inset-x-0 bottom-0 flex flex-col items-center gap-2 px-4 pb-4 text-center">
+        <UserText as="h2" text={warrior.name} className="font-display text-gild text-3xl leading-none" />
         <span
-          className="scroll-ribbon font-display text-[11px] uppercase tracking-[0.25em]"
-          style={{ background: "var(--family)" }}
+          className="font-display text-[11px] uppercase tracking-[0.3em]"
+          style={{ color: bright, textShadow: "0 0 12px color-mix(in srgb, var(--family) 70%, transparent)" }}
         >
           {levelTitle(level)}
         </span>
 
-        <dl className="grid w-full grid-cols-3 gap-1.5 text-center">
+        <dl className="hero-stats grid w-full grid-cols-3 text-center">
           {[
             { k: t("warriors.levelLabel"), v: level },
             { k: t("warriors.xpLabel"), v: xp },
             { k: t("warriors.streakLabel"), v: warrior.streak.current },
           ].map(({ k, v }) => (
-            <div key={k} className="scroll-stat">
-              <dt className="text-[9px] uppercase tracking-[0.2em] opacity-70">{k}</dt>
-              <dd className="font-display text-lg leading-tight tabular-nums">{v}</dd>
+            <div key={k} className="flex flex-col py-1.5">
+              <dt className="text-[9px] uppercase tracking-[0.2em] text-fg-faint">{k}</dt>
+              <dd className="font-display text-lg leading-tight tabular-nums text-fg">{v}</dd>
             </div>
           ))}
         </dl>
@@ -98,20 +94,17 @@ function WarriorCard({
           block
           size="sm"
           onClick={() => onSelect(warrior)}
-          className="mt-1 hover:brightness-110"
+          className="hover:brightness-110"
           style={{
-            background: color,
+            background: `linear-gradient(180deg, ${bright}, ${color})`,
             color: warrior.theme === "gilded" ? "var(--bg-2)" : "#fff",
-            boxShadow: `0 6px 18px -8px ${color}`,
+            boxShadow: `0 8px 20px -8px ${color}`,
           }}
           aria-pressed={active}
         >
           {active ? t("warriors.selected") : t("warriors.select")}
         </Button>
       </div>
-
-      {/* bottom scroll rod */}
-      <div aria-hidden className="scroll-rod -bottom-2.5" />
     </article>
   );
 }
