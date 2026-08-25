@@ -4,13 +4,15 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useT } from "@/lib/i18n/useT";
 import { cn } from "@/components/ui";
+import { DashboardIcon, IdentityIcon, JournalIcon, MapIcon, ReflectionIcon } from "./NavIcons";
+import type { ComponentType, SVGProps } from "react";
 
-const ITEMS: Array<{ href: string; key: string; glyph: string }> = [
-  { href: "/onboarding", key: "nav.onboarding", glyph: "◈" },
-  { href: "/map", key: "nav.map", glyph: "⌘" },
-  { href: "/dashboard", key: "nav.dashboard", glyph: "⬢" },
-  { href: "/journal", key: "nav.journal", glyph: "✎" },
-  { href: "/reflections", key: "nav.reflections", glyph: "☾" },
+const ITEMS: Array<{ href: string; key: string; Icon: ComponentType<SVGProps<SVGSVGElement>> }> = [
+  { href: "/onboarding", key: "nav.onboarding", Icon: IdentityIcon },
+  { href: "/map", key: "nav.map", Icon: MapIcon },
+  { href: "/dashboard", key: "nav.dashboard", Icon: DashboardIcon },
+  { href: "/journal", key: "nav.journal", Icon: JournalIcon },
+  { href: "/reflections", key: "nav.reflections", Icon: ReflectionIcon },
 ];
 
 export function BottomNav() {
@@ -31,9 +33,7 @@ export function BottomNav() {
                 )}
                 aria-current={active ? "page" : undefined}
               >
-                <span className={cn("text-lg leading-none", active && "drop-shadow-[0_0_8px_var(--accent)]")}>
-                  {it.glyph}
-                </span>
+                <it.Icon className={cn("h-[22px] w-[22px]", active && "drop-shadow-[0_0_8px_var(--accent)]")} />
                 <span>{t(it.key)}</span>
               </Link>
             </li>
