@@ -430,8 +430,16 @@
     "confidence": "Confidence {pct}%"
   },
   "map": {
-    "title": "Map",
-    "soon": "Coming soon."
+    "title": "The Road to 2027",
+    "chapter": "Chapter I · Mission Zero",
+    "progress": "stones reached",
+    "tapHint": "Tap a stone to read what it marks and what it grants.",
+    "stone": "Stone {index}",
+    "reached": "Reached",
+    "locked": "Not yet",
+    "meaning": "What it marks",
+    "reward": "What it grants",
+    "reachedOn": "Reached on {date}"
   },
   "ranks": {
     "entry": "Ranks",
