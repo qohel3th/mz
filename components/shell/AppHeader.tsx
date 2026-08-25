@@ -1,12 +1,14 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useActiveWarrior, useHydrated } from "@/lib/store";
 import { useT } from "@/lib/i18n/useT";
 import { UserText } from "@/components/ui";
 import { BrandMark } from "./NavIcons";
+import { PORTRAITS } from "@/components/warrior/portraits";
 
-/** Persistent top bar: brand, active warrior, language toggle. */
+/** Persistent top bar: brand mark, active warrior (portrait + name). */
 export function AppHeader() {
   const { t } = useT();
   const warrior = useActiveWarrior();
@@ -31,7 +33,13 @@ export function AppHeader() {
             <span className="skeleton h-3 w-16" />
           ) : warrior ? (
             <>
-              <span>{warrior.sigil}</span>
+              {PORTRAITS[warrior.id] ? (
+                <span className="relative h-7 w-7 shrink-0 overflow-hidden rounded-full border border-gold/50 shadow-[0_0_10px_-3px_var(--gold)]">
+                  <Image src={PORTRAITS[warrior.id]} alt="" fill sizes="28px" className="object-cover object-top" />
+                </span>
+              ) : (
+                <span aria-hidden>{warrior.sigil}</span>
+              )}
               <UserText className="truncate text-fg" text={warrior.name} />
             </>
           ) : (
