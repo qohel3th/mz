@@ -54,7 +54,7 @@ function Summary({ warriorId, onboarding }: { warriorId: string; onboarding: Onb
       {ONBOARDING_STEPS.map((step, i) => (
         <Panel
           key={step}
-          title={`${i + 1}. ${t(`onboarding.steps.${step}`)}`}
+          title={<span className="tabular-nums">{`${i + 1}. ${t(`onboarding.steps.${step}`)}`}</span>}
           action={
             <Link href={stepHref(step)} className="text-xs uppercase tracking-widest text-accent-2 hover:text-fg">
               {t("onboarding.nav.edit")}

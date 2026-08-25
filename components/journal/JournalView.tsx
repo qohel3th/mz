@@ -114,7 +114,7 @@ export function JournalView() {
       <section className="flex flex-col gap-3">
         <header className="flex items-baseline justify-between gap-3 px-1">
           <h2 className="text-sm uppercase tracking-widest text-gold">{t("journal.entries")}</h2>
-          <span className="text-xs text-fg-faint">
+          <span className="text-xs tabular-nums text-fg-faint">
             {entries.length === 1 ? t("journal.oneEntry") : t("journal.entryCount", { count: entries.length })}
           </span>
         </header>
