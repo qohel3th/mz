@@ -379,3 +379,23 @@ input.bidi {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ------------------------------------------------------------------
+   Persona ticket (Identity screen) — taller sibling of .hero-card
+   ------------------------------------------------------------------ */
+.persona-ticket {
+  width: 78vw;
+  max-width: 300px;
+  aspect-ratio: 3 / 4;
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--family-2) 40%, transparent),
+    0 0 36px -12px var(--family),
+    0 28px 48px -24px rgba(0, 0, 0, 0.95);
+}
+.persona-trait {
+  border-radius: 999px;
+  padding: 0.2rem 0.6rem;
+  color: var(--fg-muted);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid color-mix(in srgb, var(--family-2) 30%, transparent);
+}

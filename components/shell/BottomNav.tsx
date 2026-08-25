@@ -8,7 +8,7 @@ import { DashboardIcon, IdentityIcon, JournalIcon, MapIcon, ReflectionIcon } fro
 import type { ComponentType, SVGProps } from "react";
 
 const ITEMS: Array<{ href: string; key: string; Icon: ComponentType<SVGProps<SVGSVGElement>> }> = [
-  { href: "/onboarding", key: "nav.onboarding", Icon: IdentityIcon },
+  { href: "/identity", key: "nav.onboarding", Icon: IdentityIcon },
   { href: "/map", key: "nav.map", Icon: MapIcon },
   { href: "/dashboard", key: "nav.dashboard", Icon: DashboardIcon },
   { href: "/journal", key: "nav.journal", Icon: JournalIcon },

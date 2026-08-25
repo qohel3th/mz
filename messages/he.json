@@ -442,5 +442,17 @@
     "max": "מקסימום",
     "back": "Back",
     "you": "You are here"
+  },
+  "identity": {
+    "title": "Identity",
+    "creed": "An artist's soul, an athlete's body, an entrepreneur's mind.",
+    "subtitle": "three pillars, one warrior",
+    "pillars": {
+      "soul": "Soul",
+      "body": "Body",
+      "mind": "Mind"
+    },
+    "swipeHint": "Swipe through your three pillars",
+    "workshopLink": "Identity workshop"
   }
 }
