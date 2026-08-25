@@ -8,16 +8,19 @@ import { WarriorCarousel } from "@/components/warrior/WarriorCarousel";
 
 /**
  * Landing: strict single viewport (h-dvh, no vertical scroll).
- * Order: 2027:00 → countdown → motto → app name → warrior cards → Ranks.
+ * Order: "2027 in:" → countdown → motto → (space) → Mission Zero → warrior scrolls → Ranks.
  */
 export default function Home() {
   const hydrated = useHydrated();
   const { t } = useT();
 
   return (
-    <div className="relative mx-auto flex h-dvh w-full max-w-md flex-col overflow-hidden pb-[calc(0.75rem+var(--safe-bottom))] pt-[calc(0.5rem+var(--safe-top))]">
+    <div className="relative mx-auto flex h-dvh w-full max-w-md flex-col overflow-hidden pb-[calc(0.75rem+var(--safe-bottom))] pt-[var(--safe-top)]">
+      {/* breathing room above the year tag */}
+      <div className="min-h-3 flex-[0.6]" />
+
       <header className="flex shrink-0 flex-col items-center px-6 text-center">
-        <p className="font-display text-gild text-5xl leading-none tracking-wide xs:text-6xl" dir="ltr">
+        <p className="font-display text-gild text-4xl leading-none tracking-wide xs:text-5xl" dir="ltr">
           {t("landing.yearTag")}
         </p>
       </header>
@@ -26,18 +29,19 @@ export default function Home() {
         <Countdown />
       </div>
 
-      <div className="flex shrink-0 flex-col items-center gap-0.5 px-6 text-center">
-        <p className="font-display text-xs uppercase tracking-[0.45em] text-gold-2 xs:text-sm">{t("landing.motto")}</p>
-        <h1 className="font-display text-2xl leading-tight text-fg">{t("app.name")}</h1>
+      <p className="shrink-0 px-6 text-center font-display text-xs uppercase tracking-[0.45em] text-gold-2 xs:text-sm">
+        {t("landing.motto")}
+      </p>
+
+      <div className="min-h-2 flex-1" />
+
+      <h1 className="shrink-0 px-6 text-center font-display text-2xl leading-none text-fg">{t("app.name")}</h1>
+
+      <div className="flex min-h-0 shrink-0 flex-col items-center">
+        {hydrated ? <WarriorCarousel /> : <div className="skeleton my-4 h-64 w-[78vw] max-w-[320px]" />}
       </div>
 
-      <div className="flex min-h-0 flex-1 flex-col items-center justify-center">
-        {hydrated ? (
-          <WarriorCarousel />
-        ) : (
-          <div className="skeleton h-56 w-[80vw] max-w-[340px]" />
-        )}
-      </div>
+      <div className="min-h-1 flex-[0.4]" />
 
       <div className="flex shrink-0 justify-center">
         <Link

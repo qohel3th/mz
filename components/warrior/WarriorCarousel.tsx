@@ -1,12 +1,14 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState, type CSSProperties } from "react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import type { ThemeId, Warrior } from "@/lib/domain/types";
 import { useStore, useWarriors, useXpEvents } from "@/lib/store";
 import { useT } from "@/lib/i18n/useT";
 import { Button, UserText, cn } from "@/components/ui";
 import { levelFor, levelTitle } from "@/lib/game/progression";
+import { PORTRAITS } from "./portraits";
 
 /** Each warrior glows in its own family colour — never the page accent. */
 const FAMILY_COLOR: Record<ThemeId, string> = {
@@ -37,74 +39,79 @@ function WarriorCard({
   const color = FAMILY_COLOR[warrior.theme] ?? FAMILY_COLOR.arcane;
   const bright = FAMILY_COLOR_BRIGHT[warrior.theme] ?? FAMILY_COLOR_BRIGHT.arcane;
 
+  const portrait = PORTRAITS[warrior.id];
+
   return (
     <article
-      className={cn(
-        "snap-child panel rivets relative flex w-[80vw] max-w-[340px] shrink-0 flex-col items-center gap-2.5 px-4 pb-4 pt-4 text-center transition-shadow duration-500",
-      )}
-      style={
-        {
-          "--family": color,
-          "--family-2": bright,
-          borderColor: active ? "color-mix(in srgb, var(--family) 70%, transparent)" : undefined,
-          boxShadow: active
-            ? "0 0 0 1px color-mix(in srgb, var(--family) 45%, transparent), 0 20px 50px -20px var(--family)"
-            : "0 20px 40px -28px rgba(0,0,0,0.9)",
-          background:
-            "linear-gradient(170deg, color-mix(in srgb, var(--family) 16%, transparent), transparent 55%), var(--panel)",
-        } as CSSProperties
-      }
+      className="snap-child relative my-3 w-[78vw] max-w-[320px] shrink-0"
+      style={{ "--family": color, "--family-2": bright } as CSSProperties}
       aria-current={active ? "true" : undefined}
     >
-      {/* sigil in a glowing ring */}
-      <div
-        className={cn("flex h-14 w-14 items-center justify-center rounded-full text-3xl", active && "animate-flicker")}
-        style={{
-          background: "radial-gradient(circle, color-mix(in srgb, var(--family) 35%, transparent), transparent 70%)",
-          boxShadow:
-            "0 0 0 2px color-mix(in srgb, var(--family-2) 70%, transparent), 0 0 32px color-mix(in srgb, var(--family) 55%, transparent)",
-        }}
-        aria-hidden
-      >
-        <span className="drop-shadow-[0_0_12px_var(--family-2)]">{warrior.sigil}</span>
-      </div>
+      {/* top scroll rod */}
+      <div aria-hidden className="scroll-rod -top-2.5" />
 
-      <div className="flex flex-col items-center gap-1">
-        <UserText as="h2" text={warrior.name} className="font-display text-xl leading-tight text-fg" />
+      {/* parchment body */}
+      <div
+        className={cn("scroll-parchment relative flex flex-col items-center gap-2 px-4 pb-4 pt-5 text-center", active && "scroll-parchment-active")}
+      >
+        {/* portrait in a gilded frame */}
+        <div className="scroll-frame relative h-32 w-[6.4rem] overflow-hidden">
+          {portrait ? (
+            <Image
+              src={portrait}
+              alt=""
+              fill
+              sizes="120px"
+              priority={active}
+              className="object-cover"
+            />
+          ) : (
+            <span className="grid h-full w-full place-items-center text-5xl">{warrior.sigil}</span>
+          )}
+        </div>
+
+        <UserText as="h2" text={warrior.name} className="scroll-ink font-display text-2xl leading-none" />
+
+        {/* rank ribbon in the warrior's family colour */}
         <span
-          className="rounded-full border px-2.5 py-0.5 text-[10px] uppercase tracking-[0.25em]"
-          style={{ borderColor: "color-mix(in srgb, var(--family-2) 60%, transparent)", color: bright }}
+          className="scroll-ribbon font-display text-[11px] uppercase tracking-[0.25em]"
+          style={{ background: "var(--family)" }}
         >
           {levelTitle(level)}
         </span>
+
+        <dl className="grid w-full grid-cols-3 gap-1.5 text-center">
+          {[
+            { k: t("warriors.levelLabel"), v: level },
+            { k: t("warriors.xpLabel"), v: xp },
+            { k: t("warriors.streakLabel"), v: warrior.streak.current },
+          ].map(({ k, v }) => (
+            <div key={k} className="scroll-stat">
+              <dt className="text-[9px] uppercase tracking-[0.2em] opacity-70">{k}</dt>
+              <dd className="font-display text-lg leading-tight tabular-nums">{v}</dd>
+            </div>
+          ))}
+        </dl>
+
+        <Button
+          variant="primary"
+          block
+          size="sm"
+          onClick={() => onSelect(warrior)}
+          className="mt-1 hover:brightness-110"
+          style={{
+            background: color,
+            color: warrior.theme === "gilded" ? "var(--bg-2)" : "#fff",
+            boxShadow: `0 6px 18px -8px ${color}`,
+          }}
+          aria-pressed={active}
+        >
+          {active ? t("warriors.selected") : t("warriors.select")}
+        </Button>
       </div>
 
-      <dl className="grid w-full grid-cols-3 gap-2 text-center">
-        <div className="rounded-xl bg-bg-2/60 px-1 py-1.5">
-          <dt className="text-[10px] uppercase tracking-widest text-fg-faint">{t("warriors.levelLabel")}</dt>
-          <dd className="font-display text-base tabular-nums" style={{ color: bright }}>
-            {level}
-          </dd>
-        </div>
-        <div className="rounded-xl bg-bg-2/60 px-1 py-1.5">
-          <dt className="text-[10px] uppercase tracking-widest text-fg-faint">{t("warriors.xpLabel")}</dt>
-          <dd className="font-display text-base tabular-nums text-fg">{xp}</dd>
-        </div>
-        <div className="rounded-xl bg-bg-2/60 px-1 py-1.5">
-          <dt className="text-[10px] uppercase tracking-widest text-fg-faint">{t("warriors.streakLabel")}</dt>
-          <dd className="font-display text-base tabular-nums text-fg">{warrior.streak.current}</dd>
-        </div>
-      </dl>
-      <Button
-        variant="primary"
-        block
-        onClick={() => onSelect(warrior)}
-        className="hover:brightness-110"
-        style={{ background: color, color: warrior.theme === "gilded" ? "var(--bg-2)" : "#fff", boxShadow: `0 8px 24px -10px ${color}` }}
-        aria-pressed={active}
-      >
-        {active ? t("warriors.selected") : t("warriors.select")}
-      </Button>
+      {/* bottom scroll rod */}
+      <div aria-hidden className="scroll-rod -bottom-2.5" />
     </article>
   );
 }

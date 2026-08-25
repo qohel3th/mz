@@ -219,6 +219,74 @@ input.bidi {
   color: transparent;
 }
 
+/* ------------------------------------------------------------------
+   Scroll (parchment) player card
+   ------------------------------------------------------------------ */
+.scroll-rod {
+  position: absolute;
+  left: -0.6rem;
+  right: -0.6rem;
+  height: 1.15rem;
+  border-radius: 999px;
+  background:
+    linear-gradient(90deg, var(--gold-2) 0 0.9rem, transparent 0.9rem calc(100% - 0.9rem), var(--gold-2) calc(100% - 0.9rem)),
+    linear-gradient(180deg, #5a3a1a, #2c1a0b 55%, #4a2f14);
+  box-shadow: 0 6px 14px -6px rgba(0, 0, 0, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  z-index: 2;
+}
+.scroll-parchment {
+  color: #2b1d0e;
+  background:
+    repeating-linear-gradient(0deg, rgba(90, 60, 20, 0.05) 0 2px, transparent 2px 5px),
+    radial-gradient(120% 80% at 50% 0%, rgba(255, 250, 230, 0.55), transparent 60%),
+    radial-gradient(90% 60% at 50% 110%, rgba(120, 80, 30, 0.35), transparent 65%),
+    linear-gradient(180deg, #f0e2bd 0%, #e6d3a4 55%, #d8bf8a 100%);
+  border-left: 1px solid rgba(90, 60, 20, 0.45);
+  border-right: 1px solid rgba(90, 60, 20, 0.45);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 245, 210, 0.5),
+    inset 0 18px 24px -18px rgba(60, 35, 10, 0.55),
+    inset 0 -18px 24px -18px rgba(60, 35, 10, 0.55),
+    0 24px 40px -24px rgba(0, 0, 0, 0.9);
+  transition: box-shadow 400ms ease, filter 400ms ease;
+}
+.scroll-parchment-active {
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 245, 210, 0.6),
+    inset 0 18px 24px -18px rgba(60, 35, 10, 0.55),
+    inset 0 -18px 24px -18px rgba(60, 35, 10, 0.55),
+    0 0 0 2px color-mix(in srgb, var(--family) 65%, transparent),
+    0 0 40px -6px var(--family),
+    0 24px 40px -24px rgba(0, 0, 0, 0.9);
+}
+.scroll-ink {
+  color: #2b1d0e;
+  text-shadow: 0 1px 0 rgba(255, 245, 210, 0.6);
+}
+.scroll-frame {
+  border-radius: 0.6rem;
+  border: 3px double var(--gold);
+  background: #1a1208;
+  box-shadow:
+    0 0 0 1px rgba(60, 35, 10, 0.6),
+    0 8px 16px -8px rgba(0, 0, 0, 0.8),
+    inset 0 0 12px rgba(0, 0, 0, 0.5);
+}
+.scroll-ribbon {
+  color: #fff8e6;
+  padding: 0.25rem 0.9rem;
+  clip-path: polygon(0 0, 100% 0, calc(100% - 0.45rem) 50%, 100% 100%, 0 100%, 0.45rem 50%);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  letter-spacing: 0.25em;
+}
+.scroll-stat {
+  border-radius: 0.5rem;
+  padding: 0.3rem 0.2rem;
+  background: rgba(60, 35, 10, 0.08);
+  border: 1px solid rgba(60, 35, 10, 0.18);
+  color: #2b1d0e;
+}
+
 /* scroll snap replay */
 .snap-x-mandatory {
   scroll-snap-type: x mandatory;
