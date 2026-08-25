@@ -93,7 +93,7 @@ export function RanksLadder() {
                 else rowRefs.current.delete(level);
               }}
               className={cn(
-                "panel animate-rise-in flex items-center gap-3 px-3 py-2.5",
+                "panel animate-rise-in flex flex-wrap items-center gap-x-3 gap-y-2 px-3 py-2.5",
                 here.length > 0 && "panel-accent",
                 isMax && "border-gold/60",
                 isYou && "ring-1 ring-gold/60 shadow-[0_0_28px_-8px_var(--gold)]",
@@ -116,7 +116,7 @@ export function RanksLadder() {
                 </span>
               </div>
               {here.length > 0 && (
-                <div className="flex shrink-0 items-center gap-1.5">
+                <div className="flex basis-full flex-wrap items-center justify-end gap-1.5 ps-12">
                   {here.map(({ warrior, xp: wxp, info }) => (
                     <span
                       key={warrior.id}
