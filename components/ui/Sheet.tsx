@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, type ReactNode } from "react";
+import { createPortal } from "react-dom";
 import { cn } from "./cn";
 
 export interface SheetProps {
@@ -25,10 +26,12 @@ export function Sheet({ open, onClose, title, children, className }: SheetProps)
     };
   }, [open, onClose]);
 
+  /* Portaled to <body> so it escapes <main>'s stacking context and sits above the nav.
+     `open` can only become true after client interaction, so document is always defined here. */
   if (!open) return null;
 
-  return (
-    <div className="fixed inset-0 z-50 flex items-end justify-center" role="dialog" aria-modal="true">
+  return createPortal(
+    <div className="fixed inset-0 z-[70] flex items-end justify-center" role="dialog" aria-modal="true">
       <button
         aria-label="Close"
         className="absolute inset-0 bg-black/60 backdrop-blur-sm animate-fade-in"
@@ -44,6 +47,7 @@ export function Sheet({ open, onClose, title, children, className }: SheetProps)
         {title && <h2 className="mb-3 text-lg text-gold">{title}</h2>}
         {children}
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }

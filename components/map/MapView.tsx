@@ -47,16 +47,16 @@ export function MapView() {
   return (
     <div className="flex flex-col gap-3">
       <header className="panel panel-accent rivets flex items-center justify-between gap-3 px-4 py-3">
-        <div className="min-w-0">
-          <p className="text-[10px] uppercase tracking-[0.35em] text-fg-faint">{t("map.chapter")}</p>
-          <h1 className="font-display text-gild text-2xl leading-tight">{t("map.title")}</h1>
+        <div className="min-w-0 flex-1">
+          <p className="truncate text-[10px] uppercase tracking-[0.25em] text-fg-faint">{t("map.chapter")}</p>
+          <h1 className="font-display text-gild truncate text-xl leading-tight xs:text-[1.35rem]">{t("map.title")}</h1>
         </div>
-        <div className="text-end">
-          <p className="font-display text-2xl tabular-nums text-fg">
+        <div className="shrink-0 text-end">
+          <p className="font-display text-xl tabular-nums leading-none text-fg">
             {reachedCount}
             <span className="text-fg-faint"> / {MILESTONES.length}</span>
           </p>
-          <p className="text-[10px] uppercase tracking-widest text-fg-faint">{t("map.progress")}</p>
+          <p className="mt-1 text-[9px] uppercase tracking-widest text-fg-faint">{t("map.progress")}</p>
         </div>
       </header>
 
