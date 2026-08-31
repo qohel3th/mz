@@ -61,12 +61,12 @@ export function IdentityView() {
       {/* creed sits high, out of flow, so the card stack keeps its centred position */}
       <div className="absolute inset-x-0 top-6 flex flex-col items-center gap-1.5 text-center">
         {(["creedSoul", "creedBody", "creedMind"] as const).map((k) => (
-          <p key={k} className="font-script text-5xl leading-tight text-gold drop-shadow-[0_0_10px_rgba(138,106,31,0.35)]">
+          <p key={k} className="font-script text-5xl leading-tight text-[#b8892a] drop-shadow-[0_0_8px_rgba(138,106,31,0.3)]">
             {t(`identity.${k}`)}
           </p>
         ))}
       </div>
-      <div aria-hidden className="h-32" />
+      <div aria-hidden className="h-44" />
 
       <div
         role="group"
