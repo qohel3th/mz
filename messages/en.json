@@ -350,7 +350,14 @@
     "xpHint": "+15 XP for a new entry",
     "noWarrior": "Choose a warrior before you open the journal.",
     "chooseWarrior": "Choose a warrior",
-    "writeToday": "Write about today"
+    "writeToday": "Write about today",
+    "open": "Open the journal",
+    "close": "Close the journal",
+    "advisor": "The Counsel",
+    "advisorSoon": "Coming soon — the Counsel will read your whole journal",
+    "blankPage": "Begin writing…",
+    "prevPage": "Previous page",
+    "nextPage": "Next page"
   },
   "reflections": {
     "title": "Reflections",

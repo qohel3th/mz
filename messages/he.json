@@ -350,7 +350,14 @@
     "xpHint": "‎+15 XP על רשומה חדשה",
     "noWarrior": "בחר לוחם לפני שתפתח את היומן.",
     "chooseWarrior": "בחר לוחם",
-    "writeToday": "כתוב על היום"
+    "writeToday": "כתוב על היום",
+    "open": "פתח את היומן",
+    "close": "סגור את היומן",
+    "advisor": "היועץ",
+    "advisorSoon": "בקרוב — היועץ יקרא את כל היומן שלך",
+    "blankPage": "התחל לכתוב…",
+    "prevPage": "עמוד קודם",
+    "nextPage": "עמוד הבא"
   },
   "reflections": {
     "title": "התבוננות",

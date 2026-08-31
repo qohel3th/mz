@@ -12,7 +12,7 @@ import { StoreErrorBanner } from "./StoreErrorBanner";
 export function AppShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const bare = pathname === "/" || pathname === "/ranks";
-  const noBanner = pathname === "/identity" || pathname === "/map";
+  const noBanner = pathname === "/identity" || pathname === "/map" || pathname === "/journal";
   return (
     <>
       <HtmlAttrs />
