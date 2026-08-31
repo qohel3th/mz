@@ -631,6 +631,23 @@ input.bidi {
 }
 .book-photo::before { left: 8px; }
 .book-photo::after { right: 8px; transform: rotate(6deg); }
+.book-foot {
+  border-top: 1px dashed rgba(60, 40, 20, 0.25);
+  padding-top: 0.35rem;
+}
+.book-nav {
+  display: grid;
+  place-items: center;
+  width: 2.4rem;
+  height: 2.2rem;
+  border-radius: 999px;
+  border: 1px solid rgba(60, 40, 20, 0.35);
+  background: rgba(255, 250, 235, 0.35);
+  color: #2a1a0b;
+  cursor: pointer;
+}
+.book-nav:disabled { opacity: 0.25; cursor: default; }
+.book-nav:not(:disabled):hover, .book-nav:focus-visible { background: rgba(255, 250, 235, 0.7); outline: none; }
 .book-close {
   position: absolute;
   top: 8px;

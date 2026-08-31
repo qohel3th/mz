@@ -245,7 +245,8 @@ export function Book({ entries, onCreate, onAppend, draftEntry, className, open,
       else prev();
       return;
     }
-    if ((e.target as HTMLElement).tagName === "TEXTAREA") return;
+    const target = e.target as HTMLElement;
+    if (target.tagName === "TEXTAREA" || target.closest("button")) return;
     const rel = (e.clientX - rect.left) / rect.width; // 0 = left edge
     const outer = rtl ? rel < EDGE : rel > 1 - EDGE;
     const inner = rtl ? rel > 1 - EDGE : rel < EDGE;
@@ -276,6 +277,10 @@ export function Book({ entries, onCreate, onAppend, draftEntry, className, open,
         onChange={entry ? undefined : onDraftChange}
         active={!entry && i === pageIndex && open}
         className={cls}
+        pageNumber={i + 1}
+        pageCount={pages.length}
+        onOlder={i > 0 ? prev : undefined}
+        onNewer={i < pages.length - 1 ? next : undefined}
       />
     );
   };

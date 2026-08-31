@@ -15,6 +15,20 @@ export interface BookPageProps {
   className?: string;
   /** the textarea is only mounted on the visible blank page */
   active?: boolean;
+  /** 1-based page number and total, shown at the foot of the page */
+  pageNumber: number;
+  pageCount: number;
+  /** older page (toward the front of the book) / newer page */
+  onOlder?: () => void;
+  onNewer?: () => void;
+}
+
+function Chevron({ dir }: { dir: "left" | "right" }) {
+  return (
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      {dir === "left" ? <path d="M15 5l-7 7 7 7" /> : <path d="M9 5l7 7-7 7" />}
+    </svg>
+  );
 }
 
 /** The diary is Hebrew: its date stamp and prompts stay Hebrew whatever the app chrome is. */
@@ -25,7 +39,7 @@ function stamp(date: string, at: string): string {
 }
 
 /** One parchment page: a small handwritten date·time stamp on top, then the entry text or the ink textarea. */
-export function BookPage({ entry, draft = "", startedAt, onChange, className, active }: BookPageProps) {
+export function BookPage({ entry, draft = "", startedAt, onChange, className, active, pageNumber, pageCount, onOlder, onNewer }: BookPageProps) {
   const t = tHe;
   const line = entry ? stamp(entry.date, entry.createdAt) : startedAt ? stamp(startedAt.slice(0, 10), startedAt) : "";
 
@@ -62,6 +76,19 @@ export function BookPage({ entry, draft = "", startedAt, onChange, className, ac
       ) : (
         <div className="min-h-0 flex-1" />
       )}
+
+      {/* foot: older ‹ · n / N · › newer — a Hebrew book: the front (older pages) is to the right */}
+      <div className="book-foot relative z-[1] mt-1 flex shrink-0 items-center justify-between" dir="rtl">
+        <button type="button" className="book-nav" aria-label={t("journal.prevPage")} disabled={!onOlder} onClick={onOlder}>
+          <Chevron dir="right" />
+        </button>
+        <span className="font-script-he ink text-lg tabular-nums opacity-80" dir="ltr">
+          {pageNumber} / {pageCount}
+        </span>
+        <button type="button" className="book-nav" aria-label={t("journal.nextPage")} disabled={!onNewer} onClick={onNewer}>
+          <Chevron dir="left" />
+        </button>
+      </div>
     </div>
   );
 }
