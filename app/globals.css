@@ -33,6 +33,15 @@
   --gold: #d4a017;
   --gold-2: #f2c14e;
   --gold-3: #6b4f0b;
+  /* pillars (Identity): Soul = jade, Body = copper, Mind = steel */
+  --teal: #1f8a7a;
+  --teal-2: #4fd1b8;
+  --teal-3: #0a2f2a;
+  --copper-2: #e0965a;
+  --copper-3: #3d2110;
+  --steel: #3b5fa8;
+  --steel-2: #7ea0e6;
+  --steel-3: #0f1a36;
   --brass: #8a6a1f;
   --copper: #b87333;
   --success: #3f9d5a;
@@ -103,6 +112,7 @@ html[data-theme="gilded"] {
   --font-sans: var(--font-body), var(--font-hebrew), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-display), var(--font-hebrew), Georgia, serif;
   --font-hebrew: var(--font-hebrew), var(--font-body), system-ui, sans-serif;
+  --font-script: var(--font-hand), cursive;
 }
 
 /* ------------------------------------------------------------------
@@ -187,6 +197,9 @@ html[lang="he"] body {
 html[lang="he"] h1,
 html[lang="he"] h2,
 html[lang="he"] h3,
+.font-script {
+  font-family: var(--font-script);
+}
 html[lang="he"] .font-display {
   font-family: var(--font-hebrew);
   letter-spacing: 0;
@@ -384,8 +397,8 @@ input.bidi {
    Persona ticket (Identity screen) — taller sibling of .hero-card
    ------------------------------------------------------------------ */
 .persona-ticket {
-  width: 78vw;
-  max-width: 300px;
+  width: 46vw;
+  max-width: 190px;
   aspect-ratio: 3 / 4;
   box-shadow:
     0 0 0 1px color-mix(in srgb, var(--family-2) 40%, transparent),

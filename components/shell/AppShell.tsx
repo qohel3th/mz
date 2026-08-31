@@ -12,6 +12,7 @@ import { StoreErrorBanner } from "./StoreErrorBanner";
 export function AppShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const bare = pathname === "/" || pathname === "/ranks";
+  const noBanner = pathname === "/identity" || pathname === "/map";
   return (
     <>
       <HtmlAttrs />
@@ -20,7 +21,7 @@ export function AppShell({ children }: { children: ReactNode }) {
       <div aria-hidden className="aura aura-gilded" />
       <StoreErrorBanner />
       {!bare && <AppHeader />}
-      {!bare && <ReflectionGateBanner />}
+      {!bare && !noBanner && <ReflectionGateBanner />}
       <main
         className={
           bare

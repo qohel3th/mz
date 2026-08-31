@@ -1,11 +1,12 @@
 import type { Metadata, Viewport } from "next";
-import { Cinzel, Frank_Ruhl_Libre, Inter } from "next/font/google";
+import { Caveat, Cinzel, Frank_Ruhl_Libre, Inter } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
 import { AppShell } from "@/components/shell/AppShell";
 
 const body = Inter({ variable: "--font-body", subsets: ["latin"], display: "swap" });
 const display = Cinzel({ variable: "--font-display", subsets: ["latin"], weight: ["400", "600", "700"], display: "swap" });
+const hand = Caveat({ variable: "--font-hand", subsets: ["latin"], weight: ["400", "500"], display: "swap" });
 const hebrew = Frank_Ruhl_Libre({
   variable: "--font-hebrew",
   subsets: ["hebrew", "latin"],
@@ -55,7 +56,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       dir="ltr"
       data-theme="arcane"
       suppressHydrationWarning
-      className={`${body.variable} ${display.variable} ${hebrew.variable} h-full antialiased`}
+      className={`${body.variable} ${display.variable} ${hebrew.variable} ${hand.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
         <Providers>

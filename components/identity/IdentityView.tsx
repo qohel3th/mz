@@ -1,59 +1,108 @@
 "use client";
 
-import Link from "next/link";
+import { useRef, useState, type KeyboardEvent, type PointerEvent } from "react";
 import { useActiveWarrior, useHydrated } from "@/lib/store";
 import { useT } from "@/lib/i18n/useT";
-import { personasFor } from "@/lib/identity/personas";
+import { personasFor, PILLARS } from "@/lib/identity/personas";
 import { NoWarriorCard } from "@/components/onboarding/NoWarriorCard";
-import { UserText } from "@/components/ui";
 import { PersonaTicket } from "./PersonaTicket";
 
-/** Creed banner + the active warrior's three persona tickets (horizontal snap scroller). */
+/** header 3.5rem + 1px border, main pt-4 (1rem), nav pad 5rem (+ safe-bottom), per AppShell. */
+const WRAPPER = "flex h-[calc(100dvh-3.5rem-1px-1rem-5rem-var(--safe-bottom))] flex-col items-center justify-center gap-6 overflow-hidden";
+
+const SWIPE_PX = 40;
+const wrap = (i: number, n: number) => ((i % n) + n) % n;
+
+/** Three handwriting creed lines + a swipeable overlapping Soul/Body/Mind card stack. One screen, no scroll. */
 export function IdentityView() {
   const { t } = useT();
   const hydrated = useHydrated();
   const warrior = useActiveWarrior();
+  const [active, setActive] = useState(1); // Body in the middle, on top
+  const downX = useRef<number | null>(null);
+  const swiped = useRef(false); // a drag ends with a synthetic click — swallow it so it doesn't re-select a side card
 
   if (!hydrated) {
     return (
-      <div className="flex flex-col gap-4" aria-busy>
-        <div className="skeleton h-24" />
-        <div className="skeleton h-96" />
+      <div className={WRAPPER} aria-busy>
+        <div className="skeleton h-24 w-48" />
+        <div className="persona-ticket skeleton" />
       </div>
     );
   }
   if (!warrior) return <NoWarriorCard />;
 
   const personas = personasFor(warrior.id);
+  const n = personas.length;
+  const step = (dir: 1 | -1) => setActive((a) => wrap(a + dir, n));
+
+  const onPointerDown = (e: PointerEvent<HTMLDivElement>) => {
+    downX.current = e.clientX;
+  };
+  const onPointerUp = (e: PointerEvent<HTMLDivElement>) => {
+    if (downX.current === null) return;
+    let dx = e.clientX - downX.current;
+    downX.current = null;
+    if (Math.abs(dx) <= SWIPE_PX) return;
+    if (document.dir === "rtl") dx = -dx;
+    swiped.current = true;
+    step(dx < 0 ? 1 : -1); // swipe left → next card
+  };
+  const onKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
+    const rtl = document.dir === "rtl";
+    if (e.key === "ArrowRight") step(rtl ? -1 : 1);
+    else if (e.key === "ArrowLeft") step(rtl ? 1 : -1);
+    else return;
+    e.preventDefault();
+  };
 
   return (
-    <div className="-mx-4 flex flex-col gap-5">
-      {/* creed banner */}
-      <section className="panel panel-accent rivets mx-4 px-5 py-6 text-center">
-        <p className="text-[10px] uppercase tracking-[0.35em] text-fg-faint">{t("identity.title")}</p>
-        <h1 className="font-display text-gild mt-2 text-2xl leading-snug xs:text-[1.7rem]">{t("identity.creed")}</h1>
-        <p className="mt-3 flex items-center justify-center gap-2 text-xs text-fg-muted">
-          <UserText text={warrior.name} className="text-fg" />
-          <span aria-hidden>·</span>
-          <span>{t("identity.subtitle")}</span>
-        </p>
-      </section>
-
-      {/* tickets */}
-      <div className="snap-x-mandatory flex w-full gap-5 overflow-x-auto px-[9vw] py-3" style={{ scrollPaddingInline: "9vw" }}>
-        {personas.map((p) => (
-          <PersonaTicket key={p.pillar} persona={p} />
+    <div className={WRAPPER}>
+      <div className="flex flex-col items-center gap-1 text-center">
+        {(["creedSoul", "creedBody", "creedMind"] as const).map((k) => (
+          <p key={k} className="font-script text-2xl leading-tight text-fg-muted">
+            {t(`identity.${k}`)}
+          </p>
         ))}
       </div>
 
-      <div className="mx-4 flex items-center justify-between gap-3 text-xs text-fg-muted">
-        <span>{t("identity.swipeHint")}</span>
-        <Link
-          href="/onboarding"
-          className="inline-flex h-9 items-center gap-2 rounded-full border border-gold/50 bg-panel px-4 text-xs font-semibold uppercase tracking-widest text-gold-2 hover:bg-panel-strong"
-        >
-          {t("identity.workshopLink")}
-        </Link>
+      <div
+        role="group"
+        aria-roledescription="carousel"
+        aria-label={t(`identity.pillars.${PILLARS[active] ?? "body"}`)}
+        tabIndex={0}
+        onPointerDown={onPointerDown}
+        onPointerUp={onPointerUp}
+        onPointerCancel={() => (downX.current = null)}
+        onClickCapture={(e) => {
+          if (swiped.current) {
+            swiped.current = false;
+            e.stopPropagation();
+          }
+        }}
+        onKeyDown={onKeyDown}
+        className="persona-ticket relative select-none touch-pan-y outline-none focus-visible:ring-2 focus-visible:ring-gold/50"
+        style={{ boxShadow: "none", aspectRatio: "3 / 4" }}
+      >
+        {personas.map((p, i) => {
+          let offset = i - active;
+          if (offset > 1) offset -= n;
+          if (offset < -1) offset += n;
+          const isActive = offset === 0;
+          return (
+            <div
+              key={p.pillar}
+              className={isActive ? "absolute inset-0 z-30" : "absolute inset-0 z-10 cursor-pointer opacity-80"}
+              style={{
+                transform: isActive ? "translateX(0) scale(1)" : `translateX(${offset * 34}%) scale(0.88)`,
+                transition: "transform 400ms ease, opacity 400ms ease",
+              }}
+              onClick={isActive ? undefined : () => setActive(i)}
+            >
+              <PersonaTicket persona={p} className="h-full w-full" style={{ maxWidth: "none" }} />
+            </div>
+          );
+        })}
       </div>
     </div>
   );

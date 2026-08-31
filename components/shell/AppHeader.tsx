@@ -8,7 +8,7 @@ import { UserText } from "@/components/ui";
 import { BrandMark } from "./NavIcons";
 import { PORTRAITS } from "@/components/warrior/portraits";
 
-/** Persistent top bar: brand mark, active warrior (portrait + name). */
+/** Persistent top bar: MZ circle (→ "/") at the side, non-interactive active warrior centred. */
 export function AppHeader() {
   const { t } = useT();
   const warrior = useActiveWarrior();
@@ -16,19 +16,16 @@ export function AppHeader() {
 
   return (
     <header className="safe-top sticky top-0 z-40 border-b border-border bg-bg/80 backdrop-blur-md">
-      <div className="mx-auto flex h-14 w-full max-w-md items-center justify-between gap-3 px-4">
-        <Link href="/" className="flex min-w-0 items-center gap-2">
-          <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full border border-gold/50 bg-accent-3 text-gold-2 shadow-[0_0_14px_-4px_var(--gold)]">
-            <BrandMark className="h-[18px] w-[18px]" />
-          </span>
-          <span className="truncate font-display text-sm tracking-widest text-gild">{t("app.short")}</span>
-        </Link>
-
+      <div className="relative mx-auto flex h-14 w-full max-w-md items-center px-4">
         <Link
           href="/"
-          className="flex min-w-0 flex-1 items-center justify-center gap-2 rounded-full border border-border px-3 py-1.5 text-xs text-fg-muted hover:border-border-strong"
-          aria-label={t("header.switchWarrior")}
+          aria-label={t("app.short")}
+          className="grid h-8 w-8 shrink-0 place-items-center rounded-full border border-gold/50 bg-accent-3 text-gold-2 shadow-[0_0_14px_-4px_var(--gold)]"
         >
+          <BrandMark className="h-[18px] w-[18px]" />
+        </Link>
+
+        <div className="pointer-events-none absolute inset-x-0 mx-auto flex w-fit max-w-[60%] items-center gap-2 text-xs text-fg-muted">
           {!hydrated ? (
             <span className="skeleton h-3 w-16" />
           ) : warrior ? (
@@ -49,8 +46,7 @@ export function AppHeader() {
           ) : (
             <span>{t("header.noWarrior")}</span>
           )}
-        </Link>
-
+        </div>
       </div>
     </header>
   );

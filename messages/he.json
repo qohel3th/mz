@@ -461,6 +461,9 @@
       "mind": "Mind"
     },
     "swipeHint": "Swipe through your three pillars",
-    "workshopLink": "Identity workshop"
+    "workshopLink": "Identity workshop",
+    "creedSoul": "Artist soul",
+    "creedBody": "Athlete body",
+    "creedMind": "Entrepreneur mind"
   }
 }
