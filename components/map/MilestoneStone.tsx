@@ -1,6 +1,6 @@
 "use client";
 
-import type { KeyboardEvent } from "react";
+import type { KeyboardEvent, MouseEvent } from "react";
 import type { Milestone } from "@/lib/map/milestones";
 import { cn } from "@/components/ui";
 
@@ -9,7 +9,8 @@ export interface MilestoneStoneProps {
   reached: boolean;
   /** the furthest reached stone — the one you're standing on */
   current: boolean;
-  onOpen: (m: Milestone) => void;
+  /** anchor = the stone's viewport rect, so the scroll can unroll from it */
+  onOpen: (m: Milestone, anchor: DOMRect) => void;
   /** centre of the rock, in the map's SVG coordinate space */
   x: number;
   y: number;
@@ -20,10 +21,10 @@ export const ROCK_PATH = "M -21 4 L -17 -9 L -6 -16 L 8 -15 L 19 -8 L 22 3 L 15 
 const ROCK_TOP = "M -17 -9 L -6 -16 L 8 -15 L 19 -8 L 14 -3 L 0 -6 L -12 -2 Z";
 const ROCK_UNDER = "M -21 4 L -12 15 L 2 17 L 15 13 L 22 3 L 12 8 L -3 10 L -16 7 Z";
 
-/** Rock body as a plain group — used on the map and (at a smaller scale) in the sheet header. */
-export function RockGlyph({ className }: { className?: string }) {
+/** Rock body as a plain group — used on the map and (at a smaller scale) in the scroll header. */
+export function RockGlyph({ className, rotate = 0 }: { className?: string; rotate?: number }) {
   return (
-    <g className={className}>
+    <g className={className} transform={rotate ? `rotate(${rotate})` : undefined}>
       <ellipse className="milestone-shadow" cx="1" cy="17" rx="19" ry="4" />
       <path className="milestone-rock" d={ROCK_PATH} />
       <path className="milestone-rock-under" d={ROCK_UNDER} />
@@ -43,13 +44,19 @@ function splitName(name: string): string[] {
   return [first.join(" "), words.join(" ")];
 }
 
-/** A rock on the trail: numeral engraved on the stone, title beneath. Gold when reached, dim when locked, pulsing when current. */
+/** Deterministic ±6° tilt so the rocks read as scattered on the painting. */
+const tiltFor = (index: number) => ((index * 7) % 13) - 6;
+
+/** A rock on the trail: numeral engraved on the stone, title beneath on a soft label. Gold when reached, dim when locked, pulsing when current. */
 export function MilestoneStone({ milestone, reached, current, onOpen, x, y }: MilestoneStoneProps) {
   const lines = splitName(milestone.name);
+  const labelW = Math.max(...lines.map((l) => l.length)) * 4.6 + 10;
+  const labelH = 10 + (lines.length - 1) * 9;
+  const open = (e: MouseEvent<SVGGElement> | KeyboardEvent<SVGGElement>) => onOpen(milestone, (e.currentTarget as SVGGElement).getBoundingClientRect());
   const onKeyDown = (e: KeyboardEvent<SVGGElement>) => {
     if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
-      onOpen(milestone);
+      open(e);
     }
   };
   return (
@@ -58,15 +65,16 @@ export function MilestoneStone({ milestone, reached, current, onOpen, x, y }: Mi
       tabIndex={0}
       aria-label={`${milestone.index}. ${milestone.name}`}
       aria-pressed={current}
-      onClick={() => onOpen(milestone)}
+      onClick={open}
       onKeyDown={onKeyDown}
       transform={`translate(${x} ${y})`}
       className={cn("milestone-stone", reached ? "milestone-reached" : "milestone-locked", current && "milestone-current")}
     >
-      <RockGlyph />
+      <RockGlyph rotate={tiltFor(milestone.index)} />
       <text className="milestone-numeral" y="4" textAnchor="middle">
         {milestone.stoneLabel}
       </text>
+      <rect className="milestone-label" x={-labelW / 2} y="22" width={labelW} height={labelH} rx="3" />
       <text className="milestone-name" y="29" textAnchor="middle">
         {lines.map((l, i) => (
           <tspan key={i} x="0" dy={i === 0 ? 0 : 9}>

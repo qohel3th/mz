@@ -423,6 +423,12 @@ input.bidi {
 .map-board {
   background: transparent;
 }
+.milestone-label {
+  fill: #efe3c6;
+  opacity: 0.75;
+  stroke: rgba(60, 40, 20, 0.25);
+  stroke-width: 0.5;
+}
 .map-trail-lit {
   filter: drop-shadow(0 0 4px color-mix(in srgb, var(--gold) 70%, transparent));
   transition: stroke-dashoffset 1200ms ease-out;
@@ -438,7 +444,7 @@ input.bidi {
 .milestone-rock-under { fill: #5f574d; }
 .milestone-rock-outline {
   fill: none;
-  stroke: #3b2a16;
+  stroke: #2a1a0b;
   stroke-width: 1.5;
   stroke-linejoin: round;
   transition: stroke 400ms ease;
@@ -474,6 +480,66 @@ input.bidi {
 .milestone-current .milestone-rock-outline { stroke: var(--gold-2); }
 .milestone-stone:focus-visible .milestone-rock-outline,
 .milestone-stone:hover .milestone-rock-outline { stroke: var(--gold-2); stroke-width: 2; }
+
+/* ------------------------------------------------------------------
+   Map: milestone scroll (unrolls from the tapped stone over the blurred map)
+   ------------------------------------------------------------------ */
+.scroll-stage { pointer-events: none; }
+.scroll {
+  pointer-events: auto;
+  color: #3b2a16;
+  background-color: #efe3c6;
+  background-image: radial-gradient(120% 90% at 50% 40%, transparent 55%, rgba(120, 85, 40, 0.16) 100%);
+  border: 1px solid rgba(60, 40, 20, 0.55);
+  border-radius: 6px;
+  box-shadow: 0 30px 60px -24px rgba(0, 0, 0, 0.9), inset 0 0 40px rgba(120, 85, 40, 0.12);
+  transform-origin: var(--scroll-origin, 50% 50%);
+  animation: scroll-unroll 420ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+/* rolled ends: cylinder bars above and below the sheet */
+.scroll::before,
+.scroll::after {
+  content: "";
+  position: absolute;
+  inset-inline: -10px;
+  height: 14px;
+  border-radius: 7px;
+  background: linear-gradient(180deg, #d9c69c, #efe3c6 30%, #b9a274 70%, #7f6740);
+  border: 1px solid rgba(60, 40, 20, 0.6);
+  box-shadow: 0 4px 8px -3px rgba(0, 0, 0, 0.6);
+}
+.scroll::before { top: -8px; }
+.scroll::after { bottom: -8px; }
+.scroll-grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.3;
+  mix-blend-mode: multiply;
+  border-radius: 6px;
+}
+.scroll-ink { color: #3b2a16; }
+.scroll-close {
+  position: absolute;
+  top: 10px;
+  inset-inline-end: 10px;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+  border: 1px solid rgba(60, 40, 20, 0.4);
+  background: rgba(255, 250, 235, 0.5);
+  color: #3b2a16;
+  cursor: pointer;
+}
+@keyframes scroll-unroll {
+  from { transform: scale(0.2); clip-path: inset(48% 0 48% 0); opacity: 0.6; }
+  to { transform: scale(1); clip-path: inset(0); opacity: 1; }
+}
+.scroll-backdrop { animation: fade-in 300ms ease-out both; }
+html[lang="he"] .scroll { text-align: right; }
 
 /* ------------------------------------------------------------------
    Journal: antique book (cover + parchment pages, CSS 3D only)
