@@ -358,7 +358,8 @@
     "blankPage": "Begin writing…",
     "prevPage": "Previous page",
     "nextPage": "Next page",
-    "coverTitle": "My dear diary"
+    "coverTitle": "My dear diary",
+    "saveClose": "Save & close"
   },
   "reflections": {
     "title": "Reflections",
