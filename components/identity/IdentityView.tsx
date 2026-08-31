@@ -8,7 +8,7 @@ import { NoWarriorCard } from "@/components/onboarding/NoWarriorCard";
 import { PersonaTicket } from "./PersonaTicket";
 
 /** header 3.5rem + 1px border, main pt-4 (1rem), nav pad 5rem (+ safe-bottom), per AppShell. */
-const WRAPPER = "flex h-[calc(100dvh-3.5rem-1px-1rem-5rem-var(--safe-bottom))] flex-col items-center justify-center gap-6 overflow-hidden";
+const WRAPPER = "relative flex h-[calc(100dvh-3.5rem-1px-1rem-5rem-var(--safe-bottom))] flex-col items-center justify-center gap-6 overflow-hidden";
 
 const SWIPE_PX = 40;
 const wrap = (i: number, n: number) => ((i % n) + n) % n;
@@ -58,13 +58,15 @@ export function IdentityView() {
 
   return (
     <div className={WRAPPER}>
-      <div className="flex flex-col items-center gap-1 text-center">
+      {/* creed sits high, out of flow, so the card stack keeps its centred position */}
+      <div className="absolute inset-x-0 top-6 flex flex-col items-center gap-1.5 text-center">
         {(["creedSoul", "creedBody", "creedMind"] as const).map((k) => (
-          <p key={k} className="font-script text-2xl leading-tight text-fg-muted">
+          <p key={k} className="font-script text-4xl leading-tight text-fg-muted">
             {t(`identity.${k}`)}
           </p>
         ))}
       </div>
+      <div aria-hidden className="h-24" />
 
       <div
         role="group"
