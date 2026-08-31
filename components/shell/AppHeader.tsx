@@ -5,7 +5,6 @@ import Link from "next/link";
 import { useActiveWarrior, useHydrated } from "@/lib/store";
 import { useT } from "@/lib/i18n/useT";
 import { UserText } from "@/components/ui";
-import { BrandMark } from "./NavIcons";
 import { PORTRAITS } from "@/components/warrior/portraits";
 
 /** Persistent top bar: MZ circle (→ "/") at the side, non-interactive active warrior centred. */
@@ -20,9 +19,11 @@ export function AppHeader() {
         <Link
           href="/"
           aria-label={t("app.short")}
-          className="grid h-8 w-8 shrink-0 place-items-center rounded-full border border-gold/50 bg-accent-3 text-gold-2 shadow-[0_0_14px_-4px_var(--gold)]"
+          className="grid h-8 w-8 shrink-0 place-items-center rounded-full border border-gold/50 bg-accent-3 shadow-[0_0_14px_-4px_var(--gold)]"
         >
-          <BrandMark className="h-[18px] w-[18px]" />
+          <span aria-hidden className="font-display text-gild text-[13px] font-semibold leading-none tracking-[-0.02em]">
+            MZ
+          </span>
         </Link>
 
         <div className="pointer-events-none absolute inset-x-0 mx-auto flex w-fit max-w-[60%] items-center gap-2 text-xs text-fg-muted">
