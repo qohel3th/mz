@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState, type KeyboardEvent, type PointerEvent } from "react";
 import type { JournalEntry } from "@/lib/domain/types";
 import { nowIso } from "@/lib/domain/ids";
-import { useT } from "@/lib/i18n/useT";
+import { makeT } from "@/lib/i18n";
 import { cn } from "@/components/ui";
 import { BookPage } from "./BookPage";
 
@@ -23,26 +23,15 @@ const EDGE = 0.18;
 const FLIP_MS = 600;
 const SAVE_DEBOUNCE_MS = 800;
 
-function Flourish({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 34 34" className={cn("book-ornament", className)} fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" aria-hidden>
-      <path d="M3 3 C 14 4, 20 8, 22 18 M3 3 C 4 14, 8 20, 18 22" />
-      <path d="M3 3 c 6 2, 9 5, 10 10 M3 3 c 2 6, 5 9, 10 10" opacity="0.7" />
-      <circle cx="24" cy="24" r="1.6" fill="currentColor" stroke="none" />
-      <path d="M28 6 c -2 3, -2 5, 0 8 M6 28 c 3 -2, 5 -2, 8 0" opacity="0.6" />
-    </svg>
-  );
-}
+/** The diary itself is Hebrew: its strings, stamps and reading direction stay Hebrew whatever the app chrome is. */
+const tHe = makeT("he");
 
-/** Closed leather cover with a dog-eared corner → tap opens onto parchment pages you flip through. */
+/** An old letter tied with twine → tap the dog-ear to open onto parchment pages you flip through (spine on the right). */
 export function Book({ entries, onCreate, onAppend, draftEntry, className }: BookProps) {
-  const { t } = useT();
+  const t = tHe;
   const [open, setOpen] = useState(false);
-  // read once on the client — no SSR access to document
-  const rtlRef = useRef(false);
-  useEffect(() => {
-    rtlRef.current = document.documentElement.dir === "rtl";
-  }, []);
+  // a Hebrew book: spine on the right, pages turn from the left, whatever <html dir> says
+  const rtl = true;
 
   // oldest → newest, blank page last (the store hook sorts newest-first; reverse locally)
   const pages = useMemo(() => {
@@ -133,7 +122,6 @@ export function Book({ entries, onCreate, onAppend, draftEntry, className }: Boo
     const el = e.currentTarget;
     const rect = el.getBoundingClientRect();
     // logical: +1 = toward the next page. LTR: swipe left / tap right edge. RTL: mirrored.
-    const rtl = rtlRef.current;
     const sign = rtl ? -1 : 1;
     if (Math.abs(dx) > SWIPE_PX) {
       if (dx * sign < 0) next();
@@ -149,7 +137,7 @@ export function Book({ entries, onCreate, onAppend, draftEntry, className }: Boo
   };
   const onKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
     if ((e.target as HTMLElement).tagName === "TEXTAREA") return;
-    const sign = rtlRef.current ? -1 : 1;
+    const sign = rtl ? -1 : 1;
     if (e.key === "ArrowRight") {
       if (sign > 0) next();
       else prev();
@@ -176,7 +164,7 @@ export function Book({ entries, onCreate, onAppend, draftEntry, className }: Boo
   };
 
   return (
-    <div className={cn("book-scene", className)}>
+    <div dir="rtl" className={cn("book-scene", className)}>
       {/* pages */}
       <div
         className="book-pages"
@@ -212,14 +200,15 @@ export function Book({ entries, onCreate, onAppend, draftEntry, className }: Boo
 
       {/* cover */}
       <div className={cn("book-cover", open && "book-cover-open")} aria-hidden={open}>
-        <div className="book-spine" aria-hidden />
-        <Flourish className="left-4 top-4" />
-        <Flourish className="right-4 top-4 -scale-x-100" />
-        <Flourish className="bottom-4 left-4 -scale-y-100" />
-        <div className="book-monogram" aria-hidden>
-          <span className="book-monogram-ring">
-            <span className="font-display text-gild text-3xl font-semibold tracking-[-0.02em]">MZ</span>
-          </span>
+        <div className="book-cover-paper" aria-hidden />
+        <div className="book-rope book-rope-h" aria-hidden />
+        <div className="book-rope book-rope-v" aria-hidden />
+        <div className="book-knot" aria-hidden>
+          <span className="book-knot-end book-knot-end-a" />
+          <span className="book-knot-end book-knot-end-b" />
+        </div>
+        <div className="book-title font-script-he ink" aria-hidden>
+          {t("journal.coverTitle")}
         </div>
         <button type="button" className="book-corner" aria-label={t("journal.open")} onClick={() => setOpen(true)}>
           <span className="book-corner-fold" aria-hidden />

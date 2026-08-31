@@ -357,7 +357,8 @@
     "advisorSoon": "Coming soon — the Counsel will read your whole journal",
     "blankPage": "Begin writing…",
     "prevPage": "Previous page",
-    "nextPage": "Next page"
+    "nextPage": "Next page",
+    "coverTitle": "My dear diary"
   },
   "reflections": {
     "title": "Reflections",

@@ -87,7 +87,7 @@ export function JournalView() {
   return (
     <div className={WRAPPER}>
       <div className="flex min-h-0 w-full flex-1 items-center justify-center py-1">
-        <Book entries={entries} onCreate={createEntry} onAppend={appendEntry} draftEntry={draftEntry} className="aspect-[3/4] h-full max-h-full max-w-full" />
+        <Book entries={entries} onCreate={createEntry} onAppend={appendEntry} draftEntry={draftEntry} className="aspect-[3/4] h-[76%] max-w-[82%]" />
       </div>
       <Button variant="secondary" disabled aria-disabled title={t("journal.advisorSoon")} className="shrink-0">
         {t("journal.advisor")}

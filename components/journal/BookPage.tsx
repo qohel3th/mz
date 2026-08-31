@@ -1,8 +1,7 @@
 "use client";
 
 import type { JournalEntry } from "@/lib/domain/types";
-import { formatDate } from "@/lib/i18n";
-import { useT } from "@/lib/i18n/useT";
+import { formatDate, makeT } from "@/lib/i18n";
 import { UserText, cn } from "@/components/ui";
 
 export interface BookPageProps {
@@ -18,15 +17,17 @@ export interface BookPageProps {
   active?: boolean;
 }
 
-function stamp(locale: Parameters<typeof formatDate>[0], date: string, at: string): string {
-  const time = new Date(at).toLocaleTimeString(locale === "he" ? "he-IL" : "en-US", { hour: "2-digit", minute: "2-digit" });
-  return `${formatDate(locale, date)} · ${time}`;
+/** The diary is Hebrew: its date stamp and prompts stay Hebrew whatever the app chrome is. */
+const tHe = makeT("he");
+function stamp(date: string, at: string): string {
+  const time = new Date(at).toLocaleTimeString("he-IL", { hour: "2-digit", minute: "2-digit" });
+  return `${formatDate("he", date, { dateStyle: "long" })} · ${time}`;
 }
 
 /** One parchment page: a small handwritten date·time stamp on top, then the entry text or the ink textarea. */
 export function BookPage({ entry, draft = "", startedAt, onChange, className, active }: BookPageProps) {
-  const { t, locale } = useT();
-  const line = entry ? stamp(locale, entry.date, entry.createdAt) : startedAt ? stamp(locale, startedAt.slice(0, 10), startedAt) : "";
+  const t = tHe;
+  const line = entry ? stamp(entry.date, entry.createdAt) : startedAt ? stamp(startedAt.slice(0, 10), startedAt) : "";
 
   return (
     <div className={cn("book-page", className)}>

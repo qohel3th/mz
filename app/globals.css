@@ -486,63 +486,76 @@ input.bidi {
   position: absolute;
   inset: 0;
   z-index: 20;
-  border-radius: 10px 14px 14px 10px;
+  border-radius: 4px;
+  overflow: hidden;
   background:
-    radial-gradient(120% 80% at 30% 20%, rgba(255, 220, 160, 0.10), transparent 60%),
-    linear-gradient(160deg, #3a2416, #1f120a 70%, #170d06);
+    radial-gradient(120% 90% at 50% 45%, rgba(255, 245, 215, 0.35), transparent 60%),
+    linear-gradient(160deg, #d9c69c, #c4ad7c 60%, #a98f5f);
   box-shadow:
-    inset 0 0 0 1px rgba(0, 0, 0, 0.6),
-    inset 0 0 0 9px rgba(212, 160, 23, 0.0),
-    inset 0 0 0 10px color-mix(in srgb, var(--gold) 55%, transparent),
-    inset 0 0 0 13px transparent,
-    inset 0 0 0 14px color-mix(in srgb, var(--gold) 30%, transparent),
-    inset 0 -30px 60px rgba(0, 0, 0, 0.55),
-    0 24px 48px -20px rgba(0, 0, 0, 0.9);
+    inset 0 0 0 1px rgba(80, 55, 25, 0.35),
+    inset 0 0 40px rgba(90, 60, 25, 0.35),
+    0 18px 36px -16px rgba(0, 0, 0, 0.85);
   transform-style: preserve-3d;
   backface-visibility: hidden;
   transform-origin: left center;
   transition: transform 900ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
-html[dir="rtl"] .book-cover {
-  border-radius: 14px 10px 10px 14px;
+.book-scene[dir="rtl"] .book-cover {
   transform-origin: right center;
 }
-.book-cover-open { transform: rotateY(-180deg); pointer-events: none; }
-html[dir="rtl"] .book-cover-open { transform: rotateY(180deg); }
-.book-spine {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 12px;
-  inset-inline-start: 0;
-  border-radius: 10px 0 0 10px;
-  background: linear-gradient(90deg, rgba(0, 0, 0, 0.55), rgba(255, 255, 255, 0.06) 60%, rgba(0, 0, 0, 0.35));
-}
-html[dir="rtl"] .book-spine { border-radius: 0 10px 10px 0; }
-.book-ornament {
-  position: absolute;
-  width: 34px;
-  height: 34px;
-  color: color-mix(in srgb, var(--gold) 70%, transparent);
-  filter: drop-shadow(0 0 4px color-mix(in srgb, var(--gold) 35%, transparent));
-}
-.book-monogram {
+/* creases of a letter folded in three, plus a faint stain */
+.book-cover-paper {
   position: absolute;
   inset: 0;
-  display: grid;
-  place-items: center;
-  color: var(--gold-2);
-  filter: drop-shadow(0 0 10px color-mix(in srgb, var(--gold) 45%, transparent));
+  pointer-events: none;
+  background:
+    linear-gradient(to bottom, transparent 33%, rgba(80, 55, 25, 0.18) 33%, transparent calc(33% + 2px)),
+    linear-gradient(to bottom, transparent 66%, rgba(80, 55, 25, 0.18) 66%, transparent calc(66% + 2px)),
+    radial-gradient(30% 22% at 78% 22%, rgba(120, 85, 40, 0.16), transparent 70%),
+    radial-gradient(18% 14% at 22% 80%, rgba(120, 85, 40, 0.12), transparent 70%);
 }
-.book-monogram-ring {
-  display: grid;
-  place-items: center;
-  width: 92px;
-  height: 92px;
-  border-radius: 999px;
-  border: 1.5px solid color-mix(in srgb, var(--gold) 65%, transparent);
-  box-shadow: inset 0 0 0 5px transparent, inset 0 0 0 6px color-mix(in srgb, var(--gold) 25%, transparent);
+.book-rope {
+  position: absolute;
+  pointer-events: none;
+  background: repeating-linear-gradient(45deg, #6b4a2a 0 4px, #8a6640 4px 7px, #5a3d20 7px 9px);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 235, 200, 0.25);
 }
+.book-rope-h { left: -4px; right: -4px; top: 58%; height: 9px; transform: rotate(-1.5deg); }
+.book-rope-v { top: -4px; bottom: -4px; left: 42%; width: 9px; transform: rotate(1.2deg); background: repeating-linear-gradient(135deg, #6b4a2a 0 4px, #8a6640 4px 7px, #5a3d20 7px 9px); }
+.book-knot {
+  position: absolute;
+  top: 58%;
+  left: 42%;
+  width: 22px;
+  height: 16px;
+  margin: -4px 0 0 -6px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #9a7448, #5a3d20 70%);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+}
+.book-knot-end {
+  position: absolute;
+  top: 8px;
+  width: 26px;
+  height: 5px;
+  border-radius: 3px;
+  background: linear-gradient(90deg, #6b4a2a, #8a6640);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+.book-knot-end-a { left: 14px; transform: rotate(28deg); transform-origin: left center; }
+.book-knot-end-b { right: 14px; transform: rotate(-32deg); transform-origin: right center; }
+.book-title {
+  position: absolute;
+  inset-inline: 1.25rem;
+  top: 22%;
+  text-align: center;
+  font-size: 2.1rem;
+  line-height: 1.1;
+  pointer-events: none;
+}
+.book-cover-open { transform: rotateY(-180deg); pointer-events: none; }
+.book-scene[dir="rtl"] .book-cover-open { transform: rotateY(180deg); }
 @keyframes book-corner-lift {
   0%, 100% { transform: translate(0, 0) rotate(0deg); }
   50% { transform: translate(-3px, -3px) rotate(-4deg); }
@@ -569,7 +582,7 @@ html[dir="rtl"] .book-spine { border-radius: 0 10px 10px 0; }
   animation: book-corner-lift 3s ease-in-out infinite;
   transform-origin: 100% 100%;
 }
-html[dir="rtl"] .book-corner-fold {
+.book-scene[dir="rtl"] .book-corner-fold {
   clip-path: polygon(0 0, 100% 100%, 0 100%);
   background: linear-gradient(135deg, #efe3c6 0%, #d9c79b 45%, #6b4a2a 46%, #2a180c 100%);
   box-shadow: 4px -4px 10px rgba(0, 0, 0, 0.55);
@@ -585,7 +598,7 @@ html[dir="rtl"] .book-corner-fold {
   transform-style: preserve-3d;
   overflow: hidden;
 }
-html[dir="rtl"] .book-pages { border-radius: 12px 6px 6px 12px; }
+.book-scene[dir="rtl"] .book-pages { border-radius: 12px 6px 6px 12px; }
 .book-page {
   position: absolute;
   inset: 0;
@@ -603,7 +616,7 @@ html[dir="rtl"] .book-pages { border-radius: 12px 6px 6px 12px; }
   backface-visibility: hidden;
   transform-origin: left center;
 }
-html[dir="rtl"] .book-page {
+.book-scene[dir="rtl"] .book-page {
   box-shadow: inset -14px 0 18px -14px rgba(60, 35, 10, 0.7);
   transform-origin: right center;
 }
@@ -622,8 +635,8 @@ html[dir="rtl"] .book-page {
 @keyframes book-page-in-rtl { from { transform: rotateY(95deg); } to { transform: rotateY(0); } }
 .book-page-flip-out { animation: book-page-out 600ms cubic-bezier(0.4, 0, 0.8, 0.4) forwards; z-index: 6; }
 .book-page-flip-in { animation: book-page-in 600ms cubic-bezier(0.2, 0.6, 0.2, 1) both; z-index: 6; }
-html[dir="rtl"] .book-page-flip-out { animation-name: book-page-out-rtl; }
-html[dir="rtl"] .book-page-flip-in { animation-name: book-page-in-rtl; }
+.book-scene[dir="rtl"] .book-page-flip-out { animation-name: book-page-out-rtl; }
+.book-scene[dir="rtl"] .book-page-flip-in { animation-name: book-page-in-rtl; }
 .ink {
   color: #2a1a0b;
   text-shadow: 0 0 0.4px rgba(42, 26, 11, 0.6);
