@@ -439,7 +439,12 @@
     "locked": "Not yet",
     "meaning": "What it marks",
     "reward": "What it grants",
-    "reachedOn": "Reached on {date}"
+    "reachedOn": "Reached on {date}",
+    "stageOne": "Stage One",
+    "states": { "mental": "Mental", "physical": "Physical", "financial": "Financial" },
+    "focus": "Main focus",
+    "today": "Where you are today",
+    "finish": "Where Stage One ends"
   },
   "ranks": {
     "entry": "דרגות",

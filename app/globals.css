@@ -414,58 +414,59 @@ input.bidi {
 }
 
 /* ------------------------------------------------------------------
-   Map: waystones on a winding road
+   Map: hand-drawn parchment, rock stones on a footpath (all SVG)
    ------------------------------------------------------------------ */
 .map-board {
-  background:
-    radial-gradient(60% 30% at 50% 0%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 70%),
-    radial-gradient(50% 25% at 20% 60%, color-mix(in srgb, var(--gold) 7%, transparent), transparent 70%),
-    repeating-radial-gradient(circle at 50% 50%, transparent 0 22px, rgba(212, 160, 23, 0.035) 22px 23px);
+  background: transparent;
 }
 .map-trail-lit {
-  filter: drop-shadow(0 0 6px color-mix(in srgb, var(--accent) 70%, transparent));
+  filter: drop-shadow(0 0 4px color-mix(in srgb, var(--gold) 70%, transparent));
   transition: stroke-dashoffset 1200ms ease-out;
 }
-.milestone-disc {
-  position: relative;
-  color: var(--fg);
-  background:
-    radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.14), transparent 45%),
-    radial-gradient(circle at 60% 75%, rgba(0, 0, 0, 0.35), transparent 55%),
-    linear-gradient(160deg, #3a3140, #1d1727 60%, #2a2233);
-  border: 2px solid color-mix(in srgb, var(--gold) 75%, transparent);
-  box-shadow:
-    inset 0 2px 4px rgba(255, 255, 255, 0.08),
-    inset 0 -6px 10px rgba(0, 0, 0, 0.55),
-    0 10px 20px -10px rgba(0, 0, 0, 0.9);
-  transition: box-shadow 400ms ease, transform 200ms ease, filter 400ms ease;
+.milestone-stone {
+  cursor: pointer;
+  outline: none;
+  transition: filter 400ms ease, opacity 400ms ease;
+}
+.milestone-shadow { fill: rgba(60, 40, 20, 0.35); }
+.milestone-rock { fill: #8d8478; }
+.milestone-rock-top { fill: #b3aa9a; }
+.milestone-rock-under { fill: #5f574d; }
+.milestone-rock-outline {
+  fill: none;
+  stroke: #3b2a16;
+  stroke-width: 1.5;
+  stroke-linejoin: round;
+  transition: stroke 400ms ease;
 }
 .milestone-numeral {
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 700;
   letter-spacing: 0.06em;
-  text-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.12),
-    0 -1px 1px rgba(0, 0, 0, 0.9);
+  fill: #2b1d0e;
+  paint-order: stroke;
+  stroke: rgba(255, 255, 255, 0.35);
+  stroke-width: 0.6px;
+  pointer-events: none;
 }
 .milestone-name {
-  color: var(--fg-muted);
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+  font-family: var(--font-display);
+  font-size: 8px;
+  fill: #5b3d1e;
+  pointer-events: none;
 }
-.milestone-locked .milestone-disc {
-  filter: saturate(0.4) brightness(0.7);
-  border-color: color-mix(in srgb, var(--gold) 35%, transparent);
+.milestone-locked { opacity: 0.6; filter: saturate(0.4); }
+.milestone-reached .milestone-rock-outline { stroke: var(--gold); }
+.milestone-reached .milestone-numeral { fill: #3a2a08; }
+.milestone-reached .milestone-name { fill: #3b2a16; }
+.milestone-reached { filter: drop-shadow(0 0 3px color-mix(in srgb, var(--gold) 55%, transparent)); }
+@keyframes map-pulse {
+  0%, 100% { filter: drop-shadow(0 0 2px color-mix(in srgb, var(--gold) 45%, transparent)); }
+  50% { filter: drop-shadow(0 0 9px color-mix(in srgb, var(--gold-2) 85%, transparent)); }
 }
-.milestone-locked .milestone-name { color: var(--fg-faint); }
-.milestone-reached .milestone-disc {
-  color: var(--gold-2);
-  border-color: var(--gold-2);
-  box-shadow:
-    inset 0 2px 4px rgba(255, 255, 255, 0.1),
-    inset 0 -6px 10px rgba(0, 0, 0, 0.5),
-    0 0 0 4px color-mix(in srgb, var(--accent) 25%, transparent),
-    0 0 28px -4px var(--accent),
-    0 10px 20px -10px rgba(0, 0, 0, 0.9);
-}
-.milestone-reached .milestone-name { color: var(--fg); }
-.milestone-current .milestone-disc { animation: pulse-glow 2.4s ease-in-out infinite; }
-.milestone-stone:focus-visible .milestone-disc,
-.milestone-stone:hover .milestone-disc { transform: scale(1.06); }
+/* pulse-glow animates box-shadow, which SVG ignores — map-pulse is its drop-shadow twin */
+.milestone-current { animation: map-pulse 2.4s ease-in-out infinite; }
+.milestone-current .milestone-rock-outline { stroke: var(--gold-2); }
+.milestone-stone:focus-visible .milestone-rock-outline,
+.milestone-stone:hover .milestone-rock-outline { stroke: var(--gold-2); stroke-width: 2; }
