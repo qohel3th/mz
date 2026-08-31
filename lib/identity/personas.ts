@@ -79,7 +79,7 @@ export const PERSONAS: readonly Persona[] = [
     "w_leo",
     "body",
     "Kinetic",
-    "The Dancer",
+    "The Gymnast",
     "Always in motion; supple and strong, never stiff, never still.",
     ["motion", "suppleness", "strength"],
   ),
