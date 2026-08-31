@@ -12,6 +12,41 @@ const PILLAR_COLOR: Record<Pillar, { base: string; bright: string; deep: string 
   mind: { base: "var(--steel)", bright: "var(--steel-2)", deep: "var(--steel-3)" },
 };
 
+/** Pillar sign — inline SVG, same 24×24 / 1.6 stroke system as the nav icons. */
+function PillarGlyph({ pillar }: { pillar: Pillar }) {
+  const common = {
+    viewBox: "0 0 24 24",
+    width: 14,
+    height: 14,
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: 1.6,
+    strokeLinecap: "round" as const,
+    strokeLinejoin: "round" as const,
+    "aria-hidden": true,
+  };
+  if (pillar === "soul")
+    return (
+      <svg {...common}>
+        <path d="M12 3c1.2 3.2 3.8 4.6 3.8 8.2a3.8 3.8 0 0 1-7.6 0c0-1.5.6-2.5 1.3-3.3.3 1.1.9 1.7 1.6 2C11.6 8 11.4 5.4 12 3Z" />
+        <path d="M8 20h8" />
+      </svg>
+    );
+  if (pillar === "body")
+    return (
+      <svg {...common}>
+        <circle cx="12" cy="4.5" r="1.6" />
+        <path d="M9 9.5l3-1.5 3 1.5M12 8v5M12 13l-2.5 6M12 13l2.5 6M7 12l5-1M17 12l-5-1" />
+      </svg>
+    );
+  return (
+    <svg {...common}>
+      <path d="M12 3.5a6.5 6.5 0 0 1 3.5 12v2h-7v-2a6.5 6.5 0 0 1 3.5-12Z" />
+      <path d="M9.5 20.5h5M10 9.5c.6-1 1.3-1.5 2-1.5s1.4.5 2 1.5" />
+    </svg>
+  );
+}
+
 export interface PersonaTicketProps {
   persona: Persona;
   className?: string;
@@ -48,6 +83,15 @@ export function PersonaTicket({ persona, className, style }: PersonaTicketProps)
       )}
       <div aria-hidden className="hero-card-veil absolute inset-0" />
       <div aria-hidden className="hero-card-frame absolute inset-2 rounded-xl" />
+
+      {/* pillar sign */}
+      <span
+        className="absolute start-3.5 top-3.5 grid h-7 w-7 place-items-center rounded-full border bg-bg/60 backdrop-blur-sm"
+        style={{ color: colors.bright, borderColor: "color-mix(in srgb, var(--family-2) 55%, transparent)", boxShadow: "0 0 10px -2px var(--family)" }}
+        title={persona.pillar}
+      >
+        <PillarGlyph pillar={persona.pillar} />
+      </span>
 
       <div className="absolute inset-x-0 bottom-0 flex flex-col items-center gap-1 px-3 pb-4 text-center">
         <h3 className="font-display text-gild text-xl leading-none">{persona.archetype}</h3>

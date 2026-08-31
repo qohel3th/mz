@@ -1,12 +1,12 @@
 import type { Metadata, Viewport } from "next";
-import { Cinzel, Frank_Ruhl_Libre, Inter, Nothing_You_Could_Do } from "next/font/google";
+import { Cinzel, Frank_Ruhl_Libre, Inter, Reenie_Beanie } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
 import { AppShell } from "@/components/shell/AppShell";
 
 const body = Inter({ variable: "--font-body", subsets: ["latin"], display: "swap" });
 const display = Cinzel({ variable: "--font-display", subsets: ["latin"], weight: ["400", "600", "700"], display: "swap" });
-const hand = Nothing_You_Could_Do({ variable: "--font-hand", subsets: ["latin"], weight: "400", display: "swap" });
+const hand = Reenie_Beanie({ variable: "--font-hand", subsets: ["latin"], weight: "400", display: "swap" });
 const hebrew = Frank_Ruhl_Libre({
   variable: "--font-hebrew",
   subsets: ["hebrew", "latin"],
